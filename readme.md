@@ -27,6 +27,13 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 * 添加UI动画
 * 支持移动设备(仅限Firefox与Chrome)
 
+## 计划实现的功能
+
+* 更加智能的自动保存
+* 设置与关于界面
+* 字体加载
+
+
 ---------
 
 ### 使用的第三方库

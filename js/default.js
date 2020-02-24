@@ -1,4 +1,4 @@
-var defaultTitle = 'This is ZenPen';
+var defaultTitle = 'This is ZenPenPlus';
 var defaultContent = 
 '<p>\
 A minimalist writing zone, where you can block out all distractions and get to what\'s important. The writing!  \
@@ -22,7 +22,7 @@ var defaultContentCN =
 '<p>\
 一个极简的写作区域。这里可以阻挡所有的干扰，并让您专注于重要的事情——写作！  \
 </p>\
-首先，你只需要删除这段文字（只需Ctrl+A选中并按下Del键），然后用你自己的精彩词汇填充页面。可以还更改标题！ \
+首先，你只需要删除这段文字（只需Ctrl+A选中并按下Del键），然后用你自己的精彩词汇填充页面。标题也可以自由修改。 \
 </p> \
 <p> \
 	只需选中文本点击上方出现的小选项框，就可以使用<b>粗体</b>, <i>斜体</i>, <b><i>粗斜体</i></b> 还有 <a href="http://zenpen.io">链接</a> \
@@ -32,6 +32,6 @@ var defaultContentCN =
 </blockquote>\
 <p>\
 	随着Flowstate模式的加入，你可以更加专注于写作。</br>\
-	这是这个应用最危险的功能：在你设定的时间段内，如果你停止输入文字超过设定的间隔时间，之前写下的所有内容都会消失。\
+	现在就点击右侧的双箭头试一试吧。\
 </p>\
 '

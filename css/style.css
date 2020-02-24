@@ -6,7 +6,6 @@
  * Copyright (C) Tim Holman, http://tholman.com
  */
 
-
 /*********************************************
  * BASE STYLES
  *********************************************/
@@ -26,7 +25,7 @@ html {
 
 
 html, body {
-	font-family: 'Lora', serif;
+	font-family: 'Noto Serif SC','Source Han Serif',sans-serif;
 	padding: 0;
 	margin: 0;
 	height: 100%;
