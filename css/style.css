@@ -77,10 +77,10 @@ header {
 
 article {
 	padding-bottom: 50px;
-	line-height: 30px;
+	line-height: 22px;
 	margin-top: 22px;
 	min-height: 90%;
-	font-size: 22px;
+	font-size: 18px;
 	display: block;
 	word-wrap: break-word;
 }
