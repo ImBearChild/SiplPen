@@ -48,10 +48,25 @@ body {
 	transition: all 600ms;
 }
 
+@media (max-width: 800px){
+  body {
+    min-width: 240px;
+    }
+}
+
 section {
 	max-width: 600px;
 	height: 100%;
 	margin: auto;
+}
+
+@media (max-width: 800px){
+    section {
+	max-width: 600px;
+	height: 100%;
+	margin-left:36px;
+}
+
 }
 
 header {
@@ -70,11 +85,24 @@ article {
 	word-wrap: break-word;
 }
 
+@media (max-width: 800px){
+article {
+	font-size: 16px;
+    line-height: 20px;
+}
+}
+
 blockquote {
 	border-left: 4px solid deepskyblue;
 	margin-left: -19px;
 	padding-left: 15px;
 	margin-right: 0;
+}
+@media (max-width: 800px){
+blockquote {
+    padding-left: 6px;
+    margin-left: -10px;
+}
 }
 
 .no-overflow {
@@ -113,6 +141,14 @@ blockquote {
 	left: 0;
 	top: 0;
 }
+
+@media (max-width: 800px){
+.ui {
+    width: 32px;
+    padding: 8px;
+}
+}
+
 
 .ui:hover button, .ui:hover .about {
 	opacity: .4;
@@ -157,6 +193,7 @@ div.clickable{
 }
 
 .overlay {
+    
 	position: fixed;
 	display: none;
 	height: 100%;
@@ -231,9 +268,10 @@ div.clickable{
 }
 
 .saveoverlay {
+    /* 
 	margin-left: -215px;
 	margin-top: -100px;
-	/* height: 170px;
+	height: 170px;
 	left: 50%;
 	top: 50%;*/
 }

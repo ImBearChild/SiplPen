@@ -12,21 +12,29 @@ Zenpen (https://imbearchild.github.io/ZenPen/)
 * 可以转存为Markdown、HTML与纯文本
 * 基于HTML5的自动保存
 
-
 ## 相对原版改进 
 
 * 添加对中文（亚洲文字）的字数统计支持
 * 添加Flotstate模式
 * 添加多语言支持（中文、English）
+* 添加UI动画
+* 支持移动设备（暂不支持黑体、斜体、超链接与引用功能）
+
+---------
 
 ### 使用的第三方库
 
-* translater.js (https://github.com/jaywcjlove/translater.js)
+* translater.js [Link](https://github.com/jaywcjlove/translater.js)
 * FontAwesome (SIL OFL 1.1 and MIT License)
+* FileSaver.js [Link](http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js)
+* Blob.js [Link](http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js)
+* screenfull.js (Sindre Sorhus; MIT License)
+
 
 ### 许可协议
 
 The MIT License
 
 Copyright (C) 2016 ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com
+
 Copyright (C) 2020 ~ [ImBearChild](https://github.com/ImBearChild/) 
