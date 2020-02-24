@@ -9,15 +9,20 @@ ZenPen.ui = (function() {
 	var screenSizeElement, colorLayoutElement, targetElement, saveElement;
 
 	// Word Counter
-	var wordCountValue, wordCountBox, wordCountElement, wordCounter, wordCounterProgress;
-	
+	var wordCountValue, wordCountBox, wordCountElement, wordCounter, wordCounterProgress, counterBar;
+	var counterBarUse = 0;
+    
 	//save support
 	var supportsSave, saveFormat, textToWrite;
 	
-	var expandScreenIcon = '&#xe000;';
-	var shrinkScreenIcon = '&#xe004;';
+	var expandScreenIcon = '<i class="fa fa-arrows-alt fa-fw" aria-hidden="true"></i>';
+	var shrinkScreenIcon = '<i class="fa fa-compress fa-fw" aria-hidden="true"></i>';
 
 	var darkLayout = false;
+    
+    // flowstateMode
+    var flowstateMode = false;
+    var remaining_set, expiring_set, total_time, expiring_time , totatal_id , expiring_id ,alpha_step;
 
 	function init() {
 		
@@ -40,8 +45,11 @@ ZenPen.ui = (function() {
 		if ( localStorage['wordCount'] && localStorage['wordCount'] !== "0") {			
 			wordCountValue = parseInt(localStorage['wordCount']);
 			wordCountElement.value = localStorage['wordCount'];
-			wordCounter.className = "word-counter active";
-			updateWordCount();
+			//wordCounter.className = "counter-bar active";
+            //activeWordCount();
+			//updateWordCount();
+            setWordCount(parseInt(localStorage['wordCount']));
+            updateWordCount();
 		}
 
 		// Activate color switch
@@ -81,6 +89,20 @@ ZenPen.ui = (function() {
 
 		targetElement = document.querySelector( '.target ');
 		targetElement.onclick = onTargetClick;
+        
+        // UI element for flowstateMode
+        targetElement = document.querySelector( '.flowstate ');
+		targetElement.onclick = onFlowstateClick;
+        targetElement = document.querySelector('.startflow');
+        targetElement.onclick = function() {
+            total_set = document.getElementsByName('total_time')[0].value * 60;
+            expiring_set = document.getElementsByName('expiring_time')[0].value * 10;
+            total_time = total_set;
+            expiring_time = expiring_set;
+            alpha_step = 1/expiring_time;
+            enterFlowstateMode();
+            removeOverlay();
+        };
 		
 		//init event listeners only if browser can save
 		if (supportsSave) {
@@ -112,8 +134,13 @@ ZenPen.ui = (function() {
 		
 		saveModal = overlay.querySelector('.saveoverlay');
 
-		wordCounter = document.querySelector( '.word-counter' );
-		wordCounterProgress = wordCounter.querySelector( '.progress' );
+		counterBar = document.querySelector( '.counter-bar' );
+		wordCounterProgress = counterBar.querySelector( '.word-progress' );
+        
+        flowstateBox = overlay.querySelector( '.flowsettings' );
+        flowstateFailBox = overlay.querySelector('.flowfailure');
+        timeCounterProgress = counterBar.querySelector( '.time-progress' );
+        flowingBox=overlay.querySelector( '.flowing' );
 
 		header = document.querySelector( '.header' );
 		header.onkeypress = onHeaderKeyPress;
@@ -145,15 +172,30 @@ ZenPen.ui = (function() {
 	}
 
 	function onTargetClick( event ) {
-		overlay.style.display = "block";
-		wordCountBox.style.display = "block";
+		ZenPen.util.fadeIn(overlay);
+        //overlay.style.display="block";
+		ZenPen.util.fadeIn(wordCountBox);
 		wordCountElement.focus();
 	}
 
 	function onSaveClick( event ) {
-		overlay.style.display = "block";
-		saveModal.style.display = "block";
+		ZenPen.util.fadeIn(overlay);
+		ZenPen.util.fadeIn(saveModal);
 	}
+	
+	function onFlowstateClick(event){
+        if ( flowstateMode === false ) {
+            ZenPen.util.fadeIn(overlay);
+            ZenPen.util.fadeIn(flowstateBox);
+            //overlay.style.display = "block";
+            //flowstateBox.style.display = "block";
+			//ZenPen.editor.enterFlowstateMode ();
+		} else {
+            ZenPen.util.fadeIn(overlay);
+            ZenPen.util.fadeIn(flowingBox);
+		}
+		darkLayout = !darkLayout;
+    }
 
 	function saveText( event ) {
 
@@ -198,19 +240,32 @@ ZenPen.ui = (function() {
 		setWordCount( parseInt(this.value) );
 	}
 
+	function claimCount(){
+        counterBarUse += 1;
+        counterBar.className = "counter-bar active";
+    }
+    function unclaimCount(){
+        counterBarUse -= 1;
+        if (counterBarUse <= 0){
+        counterBar.className = "counter-bar";}
+    }
+    
 	function setWordCount( count ) {
 
 		// Set wordcount ui to active
 		if ( count > 0) {
 
 			wordCountValue = count;
-			wordCounter.className = "word-counter active";
+            claimCount();
+			//wordCounter.className = "counter-bar active";
 			updateWordCount();
 
 		} else {
 
 			wordCountValue = 0;
-			wordCounter.className = "word-counter";
+            wordCounterProgress.style.width =0;
+            unclaimCount();
+			//wordCounter.className = "counter-bar";
 		}
 		
 		saveState();
@@ -227,12 +282,12 @@ ZenPen.ui = (function() {
 
 		var wordCount = ZenPen.editor.getWordCount();
 		var percentageComplete = wordCount / wordCountValue;
-		wordCounterProgress.style.height = percentageComplete * 100 + '%';
+		wordCounterProgress.style.width = percentageComplete * 100 + '%';
 
 		if ( percentageComplete >= 1 ) {
-			wordCounterProgress.className = "progress complete";
+			wordCounterProgress.className = "word-progress progress complete";
 		} else {
-			wordCounterProgress.className = "progress";
+			wordCounterProgress.className = "word-progress progress";
 		}
 	}
 
@@ -346,21 +401,104 @@ ZenPen.ui = (function() {
 	}
 
 	function removeOverlay() {
-		
-		overlay.style.display = "none";
-		wordCountBox.style.display = "none";
-		descriptionModal.style.display = "none";
-		saveModal.style.display = "none";
+        ZenPen.util.fadeOut(overlay);
+		//overlay.style.display = "none";
+        setTimeout(function () {
+        //wordCountBox.style.display = "none";
+		//descriptionModal.style.display = "none";
+        //flowstateFailBox.style.display="none";
+		//saveModal.style.display = "none";
+        //flowstateBox.style.display= "none"
+        childs = overlay.getElementsByClassName( 'modal');
+        for(var i = childs.length - 1; i >= 0; i--) {
+            childs[i].style.display="none";}
+        document.querySelector( '.finishsummary ').style.display="none";
+        },500);
+        
 		
 		if ( document.querySelectorAll('span.activesave' ).length > 0) {
 			document.querySelector('span.activesave').className = '';
 		}
-
+        
 		saveFormat='';
 	}
+	function enterFlowstateMode () {
+        console.log("Starting flowstate mode: "+ total_time +" , "+ expiring_time + " , "+alpha_step); 
+        resetOpacity();
+        targetElement = document.querySelector( '.content');
+        targetElement.oninput=function(){
+            console.log("Press!");
+            expiring_time = expiring_set;
+            resetOpacity();
+        };
+        total_id = setInterval(count_total_down,1000);
+        expiring_id = setInterval(count_exp_down,100);
+        flowStarted();
+    }
+    function count_total_down(){
+        if (total_time > 0){
+            total_time = total_time - 1;
+            //updateTimeCount();
+        } else {
+            console.log("All over");
+            flowCompleted();
+        }
+    }
+    function count_exp_down(){
+        if (expiring_time > 0){
+            expiring_time=expiring_time - 1;
+            document.getElementsByClassName("content")[0].style.opacity = document.getElementsByClassName("content")[0].style.opacity - alpha_step;
+        } else {
+            console.log("Over");
+            ZenPen.editor.cls();
+            flowCleanWork();
+            ZenPen.util.fadeIn(overlay);
+            ZenPen.util.fadeIn(flowstateFailBox);
+        }
+    }
+    function flowStarted(){
+        flowstateMode===true;
+        claimCount();
+        timeCounterProgress.style.transition = "width "+total_set+"s";
+        timeCounterProgress.style.transitionTimingFunction ="linear";
+        timeCounterProgress.style.width="100%"
+    }
+    function updateTimeCount(){
+		var percentageComplete = 1-total_time / total_set;
+		timeCounterProgress.style.width = percentageComplete * 100 + '%';
 
+		if ( percentageComplete >= 1 ) {
+			timeCounterProgress.className = "time-progress progress complete";
+		} else {
+			timeCounterProgress.className = "time-progress progress";
+		}
+    }
+    function resetOpacity(){
+        document.getElementsByClassName("content")[0].style.opacity =1;
+    }
+    function flowCleanWork(){
+            clearInterval(total_id);
+            clearInterval(expiring_id);
+            resetOpacity();
+            unclaimCount();
+            timeCounterProgress.style.transition = "";
+            timeCounterProgress.style.width="0px";
+            flowstateMode === false;
+    }
+    function flowCompleted(){
+        flowCleanWork();
+        ZenPen.util.fadeIn(overlay);
+        ZenPen.util.fadeIn(saveModal);
+        targetElement = document.querySelector( '.finishsummary ');
+        targetElement.innerHTML=targetElement.innerHTML.replace("{s}",total_set/60);
+        targetElement.style.display="block";
+    }
+    
 	return {
-		init: init
-	}
+		init: init,
+        //Debug:
+        flowCompleted: flowCompleted,
+        unclaimCount:unclaimCount
+    }
 
 })();

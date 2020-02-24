@@ -10,52 +10,80 @@
 		/>
 
 		<!-- CSS -->
-		<link
-			href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"
-			rel="stylesheet"
-			type="text/css"
-		/>
 		<link href="css/style.css" rel="stylesheet" />
-		<link href="css/fonts.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/font-awesome.min.css">
 	</head>
 
 	<body class="yin">
 		<div class="overlay">
 			<div class="wordcount modal">
-				<h1>Target Word Count</h1>
+				<h1>Target Word Count<!--{cn}目标字数--></h1>
+				<p>Set a amount of the words you want to write. This will be used to show a progress bar on the top.
+				<!--{cn}设定您的目标字数。这将在顶部绘制一个进度条--></p>
 				<div>
 					<input type="number" name="quantity" value="0" min="0" />
 				</div>
+				<div style="font-size: 11px;text-align: center;">Enter zero to disable.<!--{cn}输入0以关闭此功能。--></div>
 			</div>
 
 			<div class="saveoverlay modal">
-				<h1>Select save format</h1>
-				<p class="saveselection">
+				<h1>Select save format<!--{cn}选择保存格式--></h1>
+				<p class="finishsummary" style="display:none">Well Done!<!--{cn}Flowstate模式已经结束。--></br>You finished your job in {s} minutes!<!--{cn}您在{s}分钟内完成了您的任务。--></br>Now you can download or copy your writings.<!--{cn}您现在可以下载或保存您的文本--></p>
+				<p class="saveselection selection">
 					<span data-format="markdown">Markdown</span>
 					<span data-format="html">HTML</span>
-					<span data-format="plain">Plain Text</span>
+					<span data-format="plain">Plain Text<!--{cn}纯文本--></span>
 				</p>
-				<button class="savebutton useicons">&#xe006;</button>
+				<button class="savebutton useicons"><i class="fa fa-download" aria-hidden="true"></i></button>
 				<div>
 					Or select format and press ctrl+c (cmd+c on mac) to copy the text.
+					<!--{cn}您也可以选择格式并按下ctrl+c(在Mac上是cmd+c)来复制文本。-->
 				</div>
 				<textarea class="hiddentextbox"></textarea>
 			</div>
+        
+            <div class="flowsettings modal">
+				<h1>Flowstate Mode<!--{cn}Flowstate 模式--></h1>
+				<div>
+				This is the most dangerous function of this appliction. You have to keep writing, or everything will be erased if you stop beyond the expiring time.
+				<!--{cn}这是这个应用最危险的功能：在你设定的时间段内，如果你停止输入文字超过设定的间隔时间，之前写下的所有内容都会消失。-->
+				</div>
+				<div>Now set the duration time you want to focus and the exciting expiring time.
+				<!--{cn}现在请设定持续时间段和间隔时间。-->
+				</div>
+				<div>
+                    <span>Lasts for (minutes):<!--{cn}持续时间（分钟）：--></span>
+					<input type="number" name="total_time" value="10" min="0" />
+				</div>
+                <div>
+                    <span>Expire in (seconds):<!--{cn}间隔时间（秒）：--></span>
+					<input type="number" name="expiring_time" value="6" min="0" />
+				</div>
+				<p class="selection startflow">
+					<span>Start</span>
+                </p>
+            </div>
+            <div class="flowfailure modal">
+            <p>Time's up :( <!--{cn}时间到:(--><br/> Be more focus next time.<!--{cn}下次请更加专心。--></p>
+            </div>
+            <div class="flowing modal">
+            <p>You're already in flowstate mode.<!--{cn}Flowstate模式已经启动。--><br/> Just keep calm and carry on.<!--{cn}请继续您的写作--></p>
+            </div>
 		</div>
 
 		<div class="text-options">
 			<div class="options">
 				<span class="no-overflow">
 					<span class="lengthen ui-inputs">
-						<button class="url useicons">&#xe005;</button>
+						<button class="url useicons"><i class="fa fa-link " aria-hidden="true" style="padding-top:4px;font-size:25px"></i></button>
 						<input
 							class="url-input"
 							type="text"
 							placeholder="Type or Paste URL here"
 						/>
-						<button class="bold">b</button>
-						<button class="italic">i</button>
-						<button class="quote">&rdquo;</button>
+						<button class="bold"><i class="fa fa-bold" aria-hidden="true"></i></button>
+						<button class="italic"><i class="fa fa-italic" aria-hidden="true"></i></button>
+						<button class="quote">”</button>
 					</span>
 				</span>
 			</div>
@@ -64,27 +92,29 @@
 		<div class="ui">
 			<div class="wrapper">
 				<div class="top editing">
-					<button class="fullscreen useicons" title="Toggle fullscreen">
-						&#xe000;
+					<button class="fullscreen useicons" title="Toggle fullscreen" title-cn="全屏模式">
+						<i class="fa fa-arrows-alt " aria-hidden="true"></i>
 					</button>
 
-					<button class="color-flip useicons" title="Invert colors">
-						&#xe002;
+					<button class="color-flip useicons" title="Invert colors" title-cn="切换配色">
+						<i class="fa fa-adjust " aria-hidden="true"></i>
 					</button>
 
-					<button class="target useicons" title="Set target word count">
-						&#xe001;
+					<button class="target useicons" title="Set target word count" title-cn="设置目标">
+						<i class="fa fa-dot-circle-o " aria-hidden="true"></i>
 					</button>
-					<button class="save useicons" title="Save Text">
-						&#xe003;
+					<button class="save useicons" title="Save Text" title-cn="保存文本">
+						<i class="fa fa-floppy-o " aria-hidden="true"></i>
+					</button>
+					<button class="flowstate useicons" title="Enter flowstate mode" title-cn="Flowstate 模式">
+						<i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i>
 					</button>
 				</div>
 
 				<div class="bottom">
 					<a
 						class="about"
-						href="https://www.buymeacoffee.com/tholman"
-						target="_blank"
+						href="#"
 					>
 						☕
 					</a>
@@ -92,8 +122,9 @@
 			</div>
 		</div>
 
-		<div class="word-counter">
-			<span class="progress"></span>
+		<div class="counter-bar">
+			<span class="word-progress progress"></span>
+			<span class="time-progress progress"></span>
 		</div>
 
 		<section>
@@ -111,24 +142,16 @@
 		<script src="js/utils.js"></script>
 		<script src="js/editor.js"></script>
 		<script src="js/ui.js"></script>
+		<script src="js/libs/translater.js"></script>
+		<script type="text/javascript">
+            var tran = new Translater({
+                lang:"cn"
+                    });
+        </script>
 		<script type="text/javascript">
 			// Initiate ZenPen
 			ZenPen.editor.init();
 			ZenPen.ui.init();
-		</script>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-38039699-1"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
-
-			gtag("config", "UA-38039699-1");
 		</script>
 	</body>
 </html>

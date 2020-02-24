@@ -39,7 +39,6 @@ ZenPen.editor = (function() {
 
 			document.onkeyup = function( event ) {
 				checkTextHighlighting( event );
-				saveState();
 			}
 
 		} else {
@@ -71,6 +70,10 @@ ZenPen.editor = (function() {
 		// IME composition from text selection
 		document.addEventListener( 'compositionstart', onCompositionStart );
 		document.addEventListener( 'compositionend', onCompositionEnd );
+        
+        // Auto save
+        setInterval(saveState,5000);
+        
 	}
 
 
@@ -247,7 +250,10 @@ ZenPen.editor = (function() {
 	}
 
 	function loadDefaultContent() {
-		contentField.innerHTML = defaultContent; // in default.js
+        if (tran.getLang() === "cn") {
+            contentField.innerHTML = defaultContentCN ;
+        } else {
+        contentField.innerHTML = defaultContent; }// in default.js
 	}
 
 	function onBoldClick() {
@@ -356,7 +362,21 @@ ZenPen.editor = (function() {
 		if ( text === "" ) {
 			return 0
 		} else {
-			return text.split(/\s+/).length;
+            try{
+		//先将回车换行符做特殊处理
+   		str = text.replace(/(\r\n+|\s+|　+)/g,"龘");
+		//处理英文字符数字，连续字母、数字、英文符号视为一个单词
+		str = str.replace(/[\x00-\xff]/g,"m");	
+		//合并字符m，连续字母、数字、英文符号视为一个单词
+		str = str.replace(/m+/g,"*");
+   		//去掉回车换行符
+		str = str.replace(/龘+/g,"");
+		//返回字数
+        //计算的时候用了一个特殊的汉字"龘"拆分
+        //Copyright:CSDN Blog:gavid0124
+		sLen = str.length;
+            }catch(e){}
+			return sLen;
 		}
 	}
 
@@ -367,11 +387,21 @@ ZenPen.editor = (function() {
 	function onCompositionEnd (event) {
 		composing = false;
 	}
-
+	
+    function cls(){
+        paras = document.getElementsByClassName("content")[0];
+        childs = paras.childNodes;
+        for(var i = childs .length - 1; i >= 0; i--) {
+            paras.removeChild(childs[i]);}
+        document.getElementsByClassName("content")[0].style.opacity = 1;
+        ZenPen.editor.saveState();
+    }
 	return {
 		init: init,
 		saveState: saveState,
-		getWordCount: getWordCount
+		getWordCount: getWordCount,
+        cls: cls,
+        loadDefaultContent:loadDefaultContent
 	}
 
 })();

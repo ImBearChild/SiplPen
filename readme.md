@@ -4,14 +4,11 @@ Zenpen (http://zenpen.io) is a web app for writing minimally, and getting into t
 
 All information is persistent locally, using HTML5 local storage.
 
-### ZenPen's minimal interface
-![ZenPen](https://i.imgur.com/uP8Ensx.png)
+## Mofided 
+* 添加对中文（亚洲文字）的字数统计支持
+* 添加Flotstate模式
 
-### Text styling
-![Text Styling](https://i.imgur.com/J8T88O7.png)
 
-### Saving
-![Saving](https://i.imgur.com/TkXX4aI.png)
 
 ### License
 
