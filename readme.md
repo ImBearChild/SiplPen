@@ -1,9 +1,14 @@
 ## ZenPen - 一个极简的写作区
 
-Zenpen (https://imbearchild.github.io/ZenPen/) 
+Zenpen
 
 一个极简的写作区域。这里可以阻挡所有的干扰，并让您专注于重要的事情——写作！
 （初次加载时间可能较长，请耐心等待）
+
+## 地址
+
+[English](https://imbearchild.github.io/ZenPen/index.html?lang=en) 
+[中文](https://imbearchild.github.io/ZenPen/index.html?lang=cn) 
 
 ## 功能
 
@@ -18,7 +23,7 @@ Zenpen (https://imbearchild.github.io/ZenPen/)
 * 添加Flotstate模式
 * 添加多语言支持（中文、English）
 * 添加UI动画
-* 支持移动设备（暂不支持黑体、斜体、超链接与引用功能）
+* 支持移动设备
 
 ---------
 

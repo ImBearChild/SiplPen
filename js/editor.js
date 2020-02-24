@@ -29,7 +29,10 @@ ZenPen.editor = (function() {
 		range.setStart(headerField, 1);
 		selection.removeAllRanges();
 		selection.addRange(range);
-
+        //Touchscreen
+        if("ontouchstart" in window){
+            optionsBox.classList.add("options-mobile");
+        }
 	}
 
 	function createEventBindings() {
@@ -53,7 +56,16 @@ ZenPen.editor = (function() {
 				checkTextHighlighting( event );
 			}, 1);
 		};
-		
+        
+		// Touchscreen bindings
+        //document.ontouchstart = checkTextHighlighting;
+        document.oncontextmenu = function( event ) {
+
+			setTimeout( function() {
+				checkTextHighlighting( event );
+			}, 1);
+		};
+        
 		// Window bindings
 		window.addEventListener( 'resize', function( event ) {
 			updateBubblePosition();
@@ -141,12 +153,19 @@ ZenPen.editor = (function() {
 	}
 	
 	function updateBubblePosition() {
+        
 		var selection = window.getSelection();
 		var range = selection.getRangeAt(0);
 		var boundary = range.getBoundingClientRect();
-		
+		//Touchscreen suppprt
+        if("ontouchstart" in window){
+        textOptions.style.top = boundary.bottom + 50 + window.pageYOffset + "px";
+		textOptions.style.left = (boundary.left + boundary.right)/2 + "px";
+        } else {
 		textOptions.style.top = boundary.top - 5 + window.pageYOffset + "px";
 		textOptions.style.left = (boundary.left + boundary.right)/2 + "px";
+            
+        }
 	}
 
 	function updateBubbleStates() {
@@ -178,6 +197,8 @@ ZenPen.editor = (function() {
 		} else {
 			urlButton.className = "url useicons"
 		}
+		
+		
 	}
 
 	function onSelectorBlur() {
@@ -278,9 +299,8 @@ ZenPen.editor = (function() {
 
 	function onUrlClick() {
 
-		if ( optionsBox.className == 'options' ) {
-
-			optionsBox.className = 'options url-mode';
+		if ( optionsBox.className == 'options') {
+        optionsBox.className = 'options url-mode'
 
 			// Set timeout here to debounce the focus action
 			setTimeout( function() {
@@ -303,9 +323,17 @@ ZenPen.editor = (function() {
 
 			}, 100);
 
-		} else {
+		} else if(optionsBox.className == 'options options-mobile'){
+            lastSelection = window.getSelection().getRangeAt(0);
+            word = prompt("URL:","");
+            window.getSelection();
+            applyURL(word);
+        }
+		else{
 
-			optionsBox.className = 'options';
+            if("ontouchstart" in window){
+            optionsBox.className = 'options options-mobile';    
+            } else {optionsBox.className = 'options '}
 		}
 	}
 
@@ -320,7 +348,7 @@ ZenPen.editor = (function() {
 
 	function onUrlInputBlur( event ) {
 
-		optionsBox.className = 'options';
+        optionsBox.className = 'options';
 		applyURL( urlInput.value );
 		urlInput.value = '';
 
