@@ -159,7 +159,7 @@ ZenPen.editor = (function() {
 		var boundary = range.getBoundingClientRect();
 		//Touchscreen suppprt
         if("ontouchstart" in window){
-        textOptions.style.top = boundary.bottom + 50 + window.pageYOffset + "px";
+        textOptions.style.top = boundary.bottom + 64 + window.pageYOffset + "px";
 		textOptions.style.left = (boundary.left + boundary.right)/2 + "px";
         } else {
 		textOptions.style.top = boundary.top - 5 + window.pageYOffset + "px";
