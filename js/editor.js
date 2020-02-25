@@ -41,6 +41,7 @@ ZenPen.editor = (function() {
 		if ( ZenPen.util.supportsHtmlStorage() ) {
 
 			document.onkeyup = function( event ) {
+                saveState();
 				checkTextHighlighting( event );
 			}
 
@@ -84,7 +85,7 @@ ZenPen.editor = (function() {
 		document.addEventListener( 'compositionend', onCompositionEnd );
         
         // Auto save
-        setInterval(saveState,5000);
+        // setInterval(saveState,5000);
         
 	}
 
@@ -422,7 +423,7 @@ ZenPen.editor = (function() {
         for(var i = childs .length - 1; i >= 0; i--) {
             paras.removeChild(childs[i]);}
         document.getElementsByClassName("content")[0].style.opacity = 1;
-        ZenPen.editor.saveState();
+        saveState();
     }
 	return {
 		init: init,
