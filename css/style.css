@@ -26,7 +26,7 @@ html {
 
 
 html, body {
-	font-family: 'Noto Serif SC','Noto Serif TC','Source Han Serif CN','Source Han Serif TW','STSong','华文宋体','SourceHanSerifCN',serif;
+	font-family: 'Noto Serif SC','Noto Serif TC','Source Han Serif CN','Source Han Serif TW','Microsoft YaHei',serif;
 	padding: 0;
 	margin: 0;
 	height: 100%;
@@ -176,7 +176,7 @@ blockquote {
 	font-family: inherit;
 	background: none;
 	cursor: pointer;
-	font-size: 25px;
+	font-size: 20px;
 	color: inherit;
 	opacity: .1;
 	padding: 0;
@@ -209,11 +209,6 @@ div.clickable{
 	left: 0;
 	top: 0;
     opacity:0;
-}
-
-.quote {
-	line-height: 60px !important;
-	font-size: 49px !important;
 }
 
 /*********************************************

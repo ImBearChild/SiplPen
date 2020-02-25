@@ -194,9 +194,9 @@ ZenPen.editor = (function() {
 		}
 
 		if ( hasNode( currentNodeList, 'A') ) {
-			urlButton.className = "url useicons active"
+			urlButton.className = "url active"
 		} else {
-			urlButton.className = "url useicons"
+			urlButton.className = "url"
 		}
 		
 		

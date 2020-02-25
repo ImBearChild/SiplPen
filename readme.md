@@ -29,10 +29,8 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 
 ## 计划实现的功能
 
-* 更加智能的自动保存
 * 设置与关于界面
 * 字体加载
-
 
 ---------
 
