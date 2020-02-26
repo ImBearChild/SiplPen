@@ -27,7 +27,7 @@ html {
 
 
 html, body {
-	font-family: 'Noto Serif SC','Noto Serif TC','Source Han Serif CN','Source Han Serif TW','Microsoft YaHei',serif;
+	font-family: 'Noto Serif SC','Noto Serif TC','Source Han Serif CN','Source Han Serif TW',sans-serif;
 	padding: 0;
 	margin: 0;
 	height: 100%;
@@ -270,8 +270,9 @@ div.clickable{
 }
 
 .settings td.link_btn {
-	width:20px;
+	font-family: 'Courier New', Courier, monospace;
 	text-align: right;
+	width: 30px;
 }
 
 .settings td.link_btn:hover {
@@ -326,15 +327,6 @@ table#lang_list span{
 .description p {
 	margin-bottom: 0;
 	text-align: center;
-}
-
-.saveoverlay {
-    /* 
-	margin-left: -215px;
-	margin-top: -100px;
-	height: 170px;
-	left: 50%;
-	top: 50%;*/
 }
 
 .saveoverlay div {
@@ -447,7 +439,7 @@ table#lang_list span{
     background-color: deepskyblue;
 }
 .time-progress{
-    background-color: blue;
+    background-color:cornflowerblue;
 }
 .progress.complete{
 	background-color: greenyellow;
@@ -616,11 +608,7 @@ table#lang_list span{
 	bottom: 0;
 }
 
-.about {
-	font-size: 28px !important;
-	filter: grayscale(1);
-	text-decoration: none !important;
-}
+
 
 .wrapper {
 	position: relative;

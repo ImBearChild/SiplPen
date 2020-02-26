@@ -32,14 +32,13 @@
                 <!--{cn}输入0以关闭此功能。-->
             </div>
         </div>
-
         <div class="saveoverlay modal">
             <h1>Select save format
                 <!--{cn}选择保存格式-->
             </h1>
             <p class="finishsummary" style="display:none">Well Done!
-                <!--{cn}心流模式已经结束。--><br />You finished your job in {s} minutes!
-                <!--{cn}您在{s}分钟内完成了您的任务。--><br />Now you can download or copy your writings.
+                <!--{cn}心流模式已经结束--><br />You finished your job in {s} minutes!
+                <!--{cn}您在{s}分钟内完成了您的任务--><br />Now you can download or copy your writings.
                 <!--{cn}您现在可以下载或保存您的文本-->
             </p>
             <p class="saveselection selection">
@@ -51,11 +50,10 @@
             <button class="savebutton useicons"><i class="fa fa-download" aria-hidden="true"></i></button>
             <div>
                 Or select format and press ctrl+c (cmd+c on mac) to copy the text.
-                <!--{cn}您也可以选择格式并按下Ctrl+C(在Mac上是Cmd+C)来复制文本。-->
+                <!--{cn}您也可以选择格式并按下Ctrl+C(在Mac上是Cmd+C)来复制文本-->
             </div>
             <textarea class="hiddentextbox"></textarea>
         </div>
-
         <div class="flowsettings modal">
             <h1>Flowstate Mode
                 <!--{cn}心流模式-->
@@ -91,7 +89,7 @@
         <div class="flowing modal">
             <p>You're already in flowstate mode.
                 <!--{cn}心流模式已经启动。--><br /> Just keep calm and carry on.
-                <!--{cn}请继续您的写作-->
+                <!--{cn}请继续您的写作。-->
             </p>
         </div>
         <div class="settings modal">
@@ -99,48 +97,51 @@
             <h1>Settings
                 <!--{cn}设置-->
             </h1>
-            <div>
-                <h2>Editor
-                    <!--{cn}编辑器-->
-                </h2>
-                <table border="0">
-                    <tr>
-                        <td>Use source serif font by Adobe.
-                            <!--{cn}使用Adobe开发的思源宋体--></br>
-                            <span style="font-size:smaller">Improve visual experience.
-                                <!--{cn}改善视觉体验--></span></td>
-                        <td class="link_btn">[X]</td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <h2>Flowstate
-                    <!--{cn}心流模式-->
-                </h2>
-                <table border="0">
-                    <tr>
-                        <td>Strict mode
-                            <!--{cn}严格模式--></br>
-                            <span style="font-size:smaller">Disable autosave and copy in flowstate mode.
-                                <!--{cn}在心流模式下关闭自动保存与复制功能--></span>
-                        </td>
-                        <td class="link_btn">[X]</td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <h2>Misc
-                    <!--{cn}杂项设置-->
-                </h2>
-                <table border="0">
-                    <tr>
-                        <td>Clean user data.
-                            <!--{cn}清除用户数据--></br>
-                            <span style="font-size:smaller">Reset HTML5 "localStorage" 
-                                <!--{cn}重置HTML5"localStorage"存储区--></span></td>
-                        <td class="link_btn">[X]</td>
-                    </tr>
-                </table>
+            <div style="display: none;">
+                <div>
+                    <h2>Editor
+                        <!--{cn}编辑器-->
+                    </h2>
+                    <table border="0">
+                        <tr>
+                            <td>Use source serif font by Adobe.
+                                <!--{cn}使用Adobe开发的思源宋体--></br>
+                                <span style="font-size:smaller">Improve visual experience. Use this when you feel font
+                                    ugly.
+                                    <!--{cn}改善视觉体验，在你觉得字体太丑或者不协调时使用--></span></td>
+                            <td class="link_btn">[ ]</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <h2>Flowstate
+                        <!--{cn}心流模式-->
+                    </h2>
+                    <table border="0">
+                        <tr>
+                            <td>Strict mode
+                                <!--{cn}严格模式--></br>
+                                <span style="font-size:smaller">Disable auto save and copy in flowstate mode.
+                                    <!--{cn}在心流模式下关闭自动保存、右键菜单与全选功能--></span>
+                            </td>
+                            <td class="link_btn">[ ]</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <h2>Misc
+                        <!--{cn}杂项设置-->
+                    </h2>
+                    <table border="0">
+                        <tr>
+                            <td>Clean ALL user data.
+                                <!--{cn}清除所有用户数据--></br>
+                                <span style="font-size:smaller">Reset HTML5 "localStorage"
+                                    <!--{cn}重置HTML5"localStorage"存储区--></span></td>
+                            <td class="link_btn">[X]</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div>
                 <h2>Language
@@ -148,12 +149,20 @@
                 </h2>
                 <table border="0" id="lang_list">
                     <tr>
-                        <td><span>English</span></td>
-                        <td style="text-align: right;"><span>Chinese(中文)</span></td>
+                        <td><span onclick="tran.setLang('default')">English</span></td>
+                        <td style="text-align: right;"><span onclick="tran.setLang('cn')">Chinese(中文)</span></td>
                     </tr>
+
                 </table>
+                <div id="langarginform" style="font-size:12px;display: none;">
+                    <p>*:If your address field or bookmark link have argument like "?lang=XX",
+                        maybe your language change will lost after exit or refresh this page. You can delete the argument safely, if you want make this setting permanent.
+                        <!--{cn}如果你的地址栏或者书签链接含有“?lang=XX”之类的参数，你的语言更改会在离开或刷新此页面后失效。如果你想要长期保存这项更改，你可以放心地删除这些参数。-->
+                    </p>
+                </div>
             </div>
         </div>
+
         <div class="info modal">
             <h1>Info
                 <!--{cn}信息-->
@@ -165,7 +174,8 @@
                 <table border="0">
                     <tr>
                         <td>Word count
-                            <!--{cn}字数--></td>
+                            <!--{cn}字数-->
+                        </td>
                         <td class="item_value" id="wordcountinfo">123</td>
                     </tr>
                 </table>
@@ -177,14 +187,30 @@
                 <table border="0">
                     <tr>
                         <td>Author
-                            <!--{cn}作者--></td>
+                            <!--{cn}作者-->
+                        </td>
                         <td class="item_value">ImBearChild</td>
+
+                    </tr>
+                    <tr>
+                        <td>License
+                            <!--{cn}许可-->
+                        </td>
+                        <td class="item_value">MIT</td>
+
+                    </tr>
+                    <tr>
+                        <td>Link
+                            <!--{cn}链接-->
+                        </td>
+                        <td class="item_value"><a href="https://github.com/ImBearChild/ZenPenPlus" target="_blank"
+                                rel="noopener noreferrer">GitHub</a></a></td>
                     </tr>
                 </table>
             </div>
         </div>
-    </div>
 
+    </div>
     <div class="text-options">
         <div class="options">
             <span class="no-overflow">
@@ -198,6 +224,7 @@
                 </span>
             </span>
         </div>
+    </div>
     </div>
 
     <div class="ui">

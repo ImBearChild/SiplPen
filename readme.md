@@ -43,6 +43,7 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 
 * 设置与关于界面
 * 字体加载
+* ~~HTML5离线应用~~（这个HTML5草案已经被删除）
 
 ---------
 

@@ -213,6 +213,9 @@ ZenPen.ui = (function() {
     }
 
     function onSettingsClick(event){
+        if (window.location.search.indexOf("lang=") != -1){
+            document.getElementById('langarginform').style.display="block";
+        }
         ZenPen.util.fadeIn(overlay);
         ZenPen.util.fadeIn(settingBox);
     }
@@ -500,7 +503,7 @@ ZenPen.ui = (function() {
     }
 
     function flowStarted() {
-        flowstateMode === true;
+        flowstateMode = true;
         claimCount();
         timeCounterProgress.style.transition = "width " + total_set + "s";
         timeCounterProgress.style.transitionTimingFunction = "linear";
@@ -529,7 +532,7 @@ ZenPen.ui = (function() {
         unclaimCount();
         timeCounterProgress.style.transition = "";
         timeCounterProgress.style.width = "0px";
-        flowstateMode === false;
+        flowstateMode = false;
     }
 
     function flowCompleted() {
