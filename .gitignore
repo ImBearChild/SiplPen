@@ -1,3 +1,17 @@
 .c9revisions
 .DS_Store
+#KDE
 .kate-swp
+#VS Code
+.vscode/*
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
