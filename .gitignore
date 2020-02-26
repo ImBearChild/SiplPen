@@ -4,6 +4,7 @@
 .kate-swp
 #VS Code
 .vscode/*
+.vscode
 # Windows:
 Thumbs.db
 ehthumbs.db
