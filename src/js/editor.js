@@ -1,5 +1,3 @@
-'use strict'
-
 // editor
 ZenPen = window.ZenPen || {};
 ZenPen.editor = (function() {
@@ -94,7 +92,7 @@ ZenPen.editor = (function() {
     }
 
 
-    function bindElements() {
+    function bindElements() { 
 
         headerField = document.querySelector('.header');
         contentField = document.querySelector('.content');
@@ -391,9 +389,8 @@ ZenPen.editor = (function() {
     }
 
     function getWordCount() {
-
         var text = ZenPen.util.getText(contentField);
-
+        var sLen;
         if (text === "") {
             return 0
         } else {

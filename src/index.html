@@ -95,11 +95,93 @@
             </p>
         </div>
         <div class="settings modal">
-            <!--Settings and about-->
-            <p>You're already in flowstate mode.
-                <!--{cn}心流模式已经启动。--><br /> Just keep calm and carry on.
-                <!--{cn}请继续您的写作-->
-            </p>
+            <!--Settings-->
+            <h1>Settings
+                <!--{cn}设置-->
+            </h1>
+            <div>
+                <h2>Editor
+                    <!--{cn}编辑器-->
+                </h2>
+                <table border="0">
+                    <tr>
+                        <td>Use source serif font by Adobe.
+                            <!--{cn}使用Adobe开发的思源宋体--></br>
+                            <span style="font-size:smaller">Improve visual experience.
+                                <!--{cn}改善视觉体验--></span></td>
+                        <td class="link_btn">[X]</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h2>Flowstate
+                    <!--{cn}心流模式-->
+                </h2>
+                <table border="0">
+                    <tr>
+                        <td>Strict mode
+                            <!--{cn}严格模式--></br>
+                            <span style="font-size:smaller">Disable autosave and copy in flowstate mode.
+                                <!--{cn}在心流模式下关闭自动保存与复制功能--></span>
+                        </td>
+                        <td class="link_btn">[X]</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h2>Misc
+                    <!--{cn}杂项设置-->
+                </h2>
+                <table border="0">
+                    <tr>
+                        <td>Clean user data.
+                            <!--{cn}清除用户数据--></br>
+                            <span style="font-size:smaller">Reset HTML5 "localStorage" 
+                                <!--{cn}重置HTML5"localStorage"存储区--></span></td>
+                        <td class="link_btn">[X]</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h2>Language
+                    <!--{cn}语言设置-->
+                </h2>
+                <table border="0" id="lang_list">
+                    <tr>
+                        <td><span>English</span></td>
+                        <td style="text-align: right;"><span>Chinese(中文)</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="info modal">
+            <h1>Info
+                <!--{cn}信息-->
+            </h1>
+            <div>
+                <h2>Statistics
+                    <!--{cn}统计-->
+                </h2>
+                <table border="0">
+                    <tr>
+                        <td>Word count
+                            <!--{cn}字数--></td>
+                        <td class="item_value" id="wordcountinfo">123</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h2>About
+                    <!--{cn}关于-->
+                </h2>
+                <table border="0">
+                    <tr>
+                        <td>Author
+                            <!--{cn}作者--></td>
+                        <td class="item_value">ImBearChild</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -141,8 +223,10 @@
             </div>
 
             <div class="bottom">
-                <!--<button class="target useicons" title="Set target word count" title-cn="设置目标">
-                    <i class="fa fa-cog" aria-hidden="true"></i></buttom>-->
+                <button class="infobtn useicons" title="About" title-cn="关于信息">
+                    <i class="fa  fa-info" aria-hidden="true"></i></buttom>
+                    <button class="settingbtn useicons" title="Settings" title-cn="偏好设置">
+                        <i class="fa fa-cog" aria-hidden="true"></i></buttom>
             </div>
         </div>
     </div>

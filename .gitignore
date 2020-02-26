@@ -3,8 +3,7 @@
 #KDE
 .kate-swp
 #VS Code
-.vscode/*
-.vscode
+.vscode/
 # Windows:
 Thumbs.db
 ehthumbs.db

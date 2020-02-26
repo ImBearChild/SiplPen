@@ -48,17 +48,19 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 
 ## 文件说明
 
-`src`目录下是项目的源代码，`docs`目录下是经过`makedoc.py`压缩的源代码。两者代码无实质上区别，均可直接使用。本项目的Github Page实际上指向的是`docs`目录，因此每次发布release都会使用`makedoc.py`压缩。
+`src`目录下是项目的源代码，`docs`目录下是经过`makedoc.py`压缩的源代码。两者代码无实质上区别，均可直接使用。本项目的Github Page实际上指向的是`docs`目录，因此每次发布release都会在`dev`分支使用`makedoc.py`压缩后合并到`master`分支。
 
 `run_doc.sh`与`run_src.sh`会启动对应目录的开发用的服务器。
 
-注意：`makedoc.py`需要Node.js包`clean-css-cli`、`uglify-js`（这些都是命令行工具）才能运行。`run_doc.sh`与`run_src.sh`需要Node.js包`http-server`。（以上命令行工具均不支持Windows环境，WSL理论上可用，但我没有测试过。）
+注意：`makedoc.py`需要Node.js包`clean-css-cli`、`uglify-js`才能运行。`run_doc.sh`与`run_src.sh`需要Node.js包`http-server`。（本项目的命令行工具均不支持Windows环境，WSL理论上可用，但我没有测试过。）
 
 ---------
 
+## 版权信息
+
 ### 使用的第三方库
 
-* translater.js [Link](https://github.com/jaywcjlove/translater.js)
+* translater.js (MIT License)[Link](https://github.com/jaywcjlove/translater.js)
 * FontAwesome (SIL OFL 1.1 and MIT License)
 * FileSaver.js [Link](http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js)
 * Blob.js [Link](http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js)

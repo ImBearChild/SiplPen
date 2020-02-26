@@ -29,6 +29,9 @@ ZenPen.ui = (function() {
     // timing
     var timeCounterProgress;
 
+    //Settings and info
+    var settingBox,infoBox;
+
     function init() {
 
         supportsSave = !!new Blob() ? true : false;
@@ -76,7 +79,7 @@ ZenPen.ui = (function() {
         }
     }
 
-    function bindElements() {
+    function bindElements() { //MARK：bind
 
         // Body element for light/dark styles
         body = document.body;
@@ -94,7 +97,14 @@ ZenPen.ui = (function() {
         targetElement = document.querySelector('.target ');
         targetElement.onclick = onTargetClick;
 
-        // UI element for flowstateMode
+        //UI element for settings and about
+        targetElement = document.querySelector('.infobtn ');
+        targetElement.onclick = onInfoClick;
+        targetElement = document.querySelector('.settingbtn ');
+        targetElement.onclick = onSettingsClick;
+
+
+        // UI element for flowstate Mode
         targetElement = document.querySelector('.flowstate ');
         targetElement.onclick = onFlowstateClick;
         targetElement = document.querySelector('.startflow');
@@ -151,7 +161,8 @@ ZenPen.ui = (function() {
         timeCounterProgress = counterBar.querySelector('.time-progress');
         flowingBox = overlay.querySelector('.flowing');
 
-        //settingBox =
+        settingBox = overlay.querySelector('.settings');
+        infoBox=overlay.querySelector('.info');
 
         header = document.querySelector('.header');
         header.onkeypress = onHeaderKeyPress;
@@ -192,6 +203,18 @@ ZenPen.ui = (function() {
     function onSaveClick(event) {
         ZenPen.util.fadeIn(overlay);
         ZenPen.util.fadeIn(saveModal);
+    }
+
+    function onInfoClick(event){
+        var t = document.getElementById("wordcountinfo");
+        t.innerText = ZenPen.editor.getWordCount();
+        ZenPen.util.fadeIn(overlay);
+        ZenPen.util.fadeIn(infoBox);
+    }
+
+    function onSettingsClick(event){
+        ZenPen.util.fadeIn(overlay);
+        ZenPen.util.fadeIn(settingBox);
     }
 
     function onFlowstateClick(event) {
