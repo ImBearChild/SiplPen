@@ -10,7 +10,9 @@
 
 所有数据都将使用HTML5本地存储功能保存在您的浏览器上。
 
-应用链接：[中文](https://imbearchild.github.io/ZenPenPlus/index.html?lang=cn)（初次加载时间可能较长，请耐心等待）
+应用链接：
+[GitHub Page](https://imbearchild.github.io/ZenPenPlus/index.html?lang=cn)与
+[Gitee Page](https://bearchild.gitee.io/zenpenplus/index.html?lang=cn) (国内)
 
 README：[English](https://github.com/ImBearChild/ZenPenPlus/blob/master/readme_en.md)
 
