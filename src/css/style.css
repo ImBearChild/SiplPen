@@ -26,21 +26,21 @@ html {
 }
 
 
-html, body {
-	font-family: 'Noto Serif SC','Noto Serif TC','Source Han Serif CN','Source Han Serif TW',sans-serif;
+html,body { /* 同时设置来保证滚动 */
 	padding: 0;
 	margin: 0;
 	height: 100%;
 }
 
 @font-face{
-    font-family: 'SourceHanSerifCN'; 
+    font-family: 'SourceHanSerifWeb'; 
     src:url('../fonts/SourceHanSerifCN-Regular.woff2') format('woff2');
     font-display: swap;
-    font-style: normal;
+	font-style: normal;
 }
 
 body {
+	font-family: 'Noto Sans SC','Noto Sans TC','Source Han Sans CN','Source Han Sans TW', sans-serif;
 	padding-bottom: 40px;
 	padding-right: 10px;
 	overflow-y: scroll;
@@ -48,12 +48,15 @@ body {
 	padding-top: 20px;
 	min-width: 800px;
 	width: 100%;
-
+	height: 100%;
 	-webkit-transition: all 600ms;
 	-moz-transition: all 600ms;
 	-ms-transition: all 600ms;
 	-o-transition: all 600ms;
 	transition: all 600ms;
+}
+body.src-font{
+	font-family: 'SourceHanSerifWeb','Noto Serif SC','Noto Serif TC','Source Han Serif CN','Source Han Serif TW',serif;
 }
 
 @media (max-width: 800px){
@@ -235,7 +238,12 @@ div.clickable{
 	color: #fff;
 	left: 50%;
     opacity:0;
-    transition: opacity 0.5s;
+	transition: opacity 0.5s;
+	user-select:none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 @media (max-width: 420px){
     .modal {
@@ -272,8 +280,7 @@ div.clickable{
 }
 
 .settings td.link_btn {
-	font-family: 'Courier New', Courier, monospace;
-	text-align: right;
+	text-align: center;
 	width: 30px;
 }
 
@@ -425,10 +432,10 @@ table#lang_list span{
 	opacity: 0.5;
 	position: absolute;
 	top: 0;
-	width: 0%;
 	height: 100%;
 }
 .word-progress{
+	width: 0%;
     -webkit-transition: all 1s linear;
 	-moz-transition: all 1s linear;
 	-ms-transition: all 1s linear;
@@ -437,10 +444,17 @@ table#lang_list span{
     background-color: deepskyblue;
 }
 .time-progress{
+	width: 0%;
     background-color:cornflowerblue;
 }
 .progress.complete{
 	background-color: greenyellow;
+}
+.font-progress{
+	width: 32px;
+	margin-left:-33px;
+	transition:all 5s linear;
+    background-color:orange;
 }
 
 /*********************************************

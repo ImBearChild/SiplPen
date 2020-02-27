@@ -274,11 +274,8 @@ ZenPen.editor = (function() {
     }
 
     function loadDefaultContent() {
-        if (tran.getLang() === "cn") {
-            contentField.innerHTML = defaultContentCN;
-        } else {
-            contentField.innerHTML = defaultContent;
-        } // in default.js
+    contentField.innerHTML = defaultContent;
+     // in string.js
     }
 
     function onBoldClick() {

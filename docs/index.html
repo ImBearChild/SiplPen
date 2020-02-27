@@ -80,24 +80,40 @@
                 <span>Start</span>
             </p>
         </div>
-        <div class="flowfailure modal">
-            <p>Time's up :(
-                <!--{cn}时间到:(--><br /> Be more focus next time.
-                <!--{cn}下次请更加专心。-->
-            </p>
+        <div class="flowfailure modal" style="z-index: 128;">
+            <table border="0">
+                <tr>
+                    <td><i class="fa fa-fw fa-exclamation-circle fa-2x" aria-hidden="true"></i></td>
+                    <td style="width: 4px;"></td>
+                    <td>
+                        <p>Time's up :(
+                            <!--{cn}时间到:(--><br /> Be more focus next time.
+                            <!--{cn}下次请更加专心。-->
+                        </p>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="flowing modal">
-            <p>You're already in flowstate mode.
-                <!--{cn}心流模式已经启动。--><br /> Just keep calm and carry on.
-                <!--{cn}请继续您的写作。-->
-            </p>
+            <table border="0">
+                <tr>
+                    <td><i class="fa fa-fw fa-exclamation-circle fa-2x" aria-hidden="true"></i></td>
+                    <td style="width: 4px;"></td>
+                    <td>
+                        <p>You're already in flowstate mode.
+                            <!--{cn}心流模式已经启动。--><br /> Just keep calm and carry on.
+                            <!--{cn}请继续您的写作。-->
+                        </p>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="settings modal">
             <!--Settings-->
             <h1>Settings
                 <!--{cn}设置-->
             </h1>
-            <div style="display: none;">
+            <div>
                 <div>
                     <h2>Editor
                         <!--{cn}编辑器-->
@@ -108,8 +124,13 @@
                                 <!--{cn}使用Adobe开发的思源宋体--></br>
                                 <span style="font-size:smaller">Improve visual experience. Use this when you feel font
                                     ugly.
-                                    <!--{cn}改善视觉体验，在你觉得字体太丑或者不协调时使用--></span></td>
-                            <td class="link_btn">[ ]</td>
+                                    <!--{cn}改善视觉体验，在你觉得字体太丑或者不协调时使用--></span><br>
+                                <b id="spanfontloading" style="font-size:smaller;display: none;">Font file is loading.
+                                    You can continue using this app. When loading complete, the yellow top bar will
+                                    display.
+                                    <!--{cn}正在加载字体。您可以继续使用程序而不受影响。当加载完成时，黄色顶栏会消失。--></b></td>
+                            <td class="link_btn" id="toggleFont" onclick="ZenPen.ui.s_toggleFont()"><span
+                                    class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span></td>
                         </tr>
                     </table>
                 </div>
@@ -122,9 +143,10 @@
                             <td>Strict mode
                                 <!--{cn}严格模式--></br>
                                 <span style="font-size:smaller">Disable auto save and copy in flowstate mode.
-                                    <!--{cn}在心流模式下关闭自动保存、右键菜单与全选功能--></span>
+                                    <!--{cn}在心流模式下关闭自动保存、右键菜单与复制功能--></span>
                             </td>
-                            <td class="link_btn">[ ]</td>
+                            <td class="link_btn" id="toggleStrict" onclick="ZenPen.ui.s_toggleStrict()"><span
+                                    class="fa-lg"><i class="fa-fw fa fa-check-square-o" aria-hidden="true"></i></span></td>
                         </tr>
                     </table>
                 </div>
@@ -136,9 +158,10 @@
                         <tr>
                             <td>Clean ALL user data.
                                 <!--{cn}清除所有用户数据--></br>
-                                <span style="font-size:smaller">Reset HTML5 "localStorage"
+                                <span style="font-size:smaller" onclick="">Reset HTML5 "localStorage"
                                     <!--{cn}重置HTML5"localStorage"存储区--></span></td>
-                            <td class="link_btn">[X]</td>
+                            <td class="link_btn" onclick="ZenPen.ui.s_cleanLocalStorage()"><span class="fa-lg"><i
+                                    class="fa fa-caret-square-o-right" aria-hidden="true"></i></span></td>
                         </tr>
                     </table>
                 </div>
@@ -156,7 +179,8 @@
                 </table>
                 <div id="langarginform" style="font-size:12px;display: none;">
                     <p>*:If your address field or bookmark link have argument like "?lang=XX",
-                        maybe your language change will lost after exit or refresh this page. You can delete the argument safely, if you want make this setting permanent.
+                        maybe your language change will lost after exit or refresh this page. You can delete the
+                        argument safely, if you want make this setting permanent.
                         <!--{cn}如果你的地址栏或者书签链接含有“?lang=XX”之类的参数，你的语言更改会在离开或刷新此页面后失效。如果你想要长期保存这项更改，你可以放心地删除这些参数。-->
                     </p>
                 </div>
@@ -261,6 +285,7 @@
     <div class="counter-bar">
         <span class="word-progress progress"></span>
         <span class="time-progress progress"></span>
+        <span class="font-progress progress"></span>
     </div>
 
     <section>
@@ -272,18 +297,14 @@
     <script src="js/libs/FileSaver.min.js"></script>
     <script src="js/libs/Blob.min.js"></script>
     <script src="js/libs/screenfull.min.js"></script>
+    <script src="js/libs/fontfaceobserver.standalone.min.js"></script>
 
     <!-- JS -->
-    <script src="js/default.js"></script>
+    <script src="js/translater.js"></script>
+    <script src="js/string.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/editor.js"></script>
     <script src="js/ui.js"></script>
-    <script src="js/translater.js"></script>
-    <script type="text/javascript">
-        var tran = new Translater({
-            lang: "cn"
-        });
-    </script>
     <script type="text/javascript">
         // Initiate ZenPen
         ZenPen.editor.init();

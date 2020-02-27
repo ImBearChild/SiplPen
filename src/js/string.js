@@ -1,5 +1,11 @@
-var defaultTitle = 'This is ZenPenPlus';
-var defaultContent = 
+'use strict'
+
+var defaultTitle, defaultContent,alertContent1,confirmContent1;
+
+var defaultTitle_DEF = 'This is ZenPenPlus';
+var defaultTitle_CN = '简笔'
+
+var defaultContent_DEF = 
 '<p>\
 A minimalist writing zone, where you can block out all distractions and get to what\'s important. The writing!  \
 </p>\
@@ -17,8 +23,7 @@ To get started, all you need to do is delete this text (seriously, just highligh
 	This is the most dangerous function of this appliction. You have to keep writing, or everything will be erased if you stop beyond the expiring time.\
 </p>\
 ';
-
-var defaultContentCN = 
+var defaultContent_CN = 
 '<p>\
 一个极简的写作区域。这里可以阻挡所有的干扰，并让您专注于重要的事情——写作！  \
 </p>\
@@ -35,3 +40,22 @@ var defaultContentCN =
 	现在就点击右侧的双箭头试一试吧。\
 </p>\
 '
+
+var alertContent1_DEF="An internal error has occurred. Please save your document and use \"Clean ALL user data.\" item to reset data."
+var alertContent1_CN="发生内部错误。\n因储存的数据与程序逻辑不一致，此设置项暂不可用。\n要修复此问题请保存您的文档，并使用设置项“清除所有用户数据”来重设数据。"
+
+var confirmContent1_DEF="All user date will be deleted. Are you sure to continue?"
+var confirmContent1_CN="所有用户数据都将被清除。您确定要继续吗？"
+
+var tran = new Translater();
+if (tran.getLang()==="cn"){
+	defaultTitle = defaultTitle_CN;
+	defaultContent = defaultContent_CN;
+	alertContent1 = alertContent1_CN;
+	confirmContent1=confirmContent1_CN;
+} else {
+	defaultTitle = defaultTitle_DEF;
+	defaultContent = defaultContent_DEF;
+	alertContent1 = alertContent1_DEF;
+	confirmContent1=confirmContent1_DEF;
+}

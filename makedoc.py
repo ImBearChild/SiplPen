@@ -61,7 +61,7 @@ for (root, dirs, files) in os.walk(src_dir+"/",followlinks=False):
             continue
         if path.find(".css") == len(path)-4:
             print("Calling cleancss :"+name)
-            p = subprocess.Popen(['cleancss',"-O2","-o",work_dir+"/docs/css/"+name,path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            p = subprocess.Popen(['cleancss',"-O2","--skip-rebase","-o",work_dir+"/docs/css/"+name,path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             #print(p.args)
             #pbar.update()
             while p.poll() is None:

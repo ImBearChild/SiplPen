@@ -1,16 +1,18 @@
-# ZenPenPlus - 一个极简的写作区
+# 简笔 - 一个极简的写作区
 
 阻挡干扰，专注写作
 
-## 地址
+## 简介
 
-Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html?lang=en)
+简笔是一个极简主义的网页写作App。
+
+本软件的目的之有一个——专注于写作。使用的时候，无需关心其他繁杂事务，只需关心面前的“纸笔”。
+
+所有数据都将使用HTML5本地存储功能保存在您的浏览器上。
 
 应用链接：[中文](https://imbearchild.github.io/ZenPenPlus/index.html?lang=cn)（初次加载时间可能较长，请耐心等待）
 
-## 目标
-
-本软件的目的之有一个——专注于写作。使用的时候，无需关心其他繁杂事务，只需关心面前的“纸笔”。
+README：[English](https://github.com/ImBearChild/ZenPenPlus/blob/master/readme_en.md)
 
 ## 功能
 
@@ -21,6 +23,9 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 * 可以转存为Markdown、HTML与纯文本
 * 基于HTML5的本地自动保存
 * 心流模式，让思维自由流淌
+* 设置与关于界面
+* 字体加载
+* 字数统计
 * (如果你喜欢)可以下载到本地直接使用，无需搭建服务器
 
 ## 心流模式
@@ -38,12 +43,8 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 * 添加多语言支持（中文、English）
 * 添加UI动画
 * 支持移动设备(仅限Firefox与Chrome)
-
-## 计划实现的功能
-
 * 设置与关于界面
 * 字体加载
-* ~~HTML5离线应用~~（这个HTML5草案已经被删除）
 
 ---------
 
@@ -61,7 +62,7 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 
 ### 使用的第三方库
 
-* translater.js (MIT License)[Link](https://github.com/jaywcjlove/translater.js)
+* translater.js (MIT License) [Link](https://github.com/jaywcjlove/translater.js)
 * FontAwesome (SIL OFL 1.1 and MIT License)
 * FileSaver.js [Link](http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js)
 * Blob.js [Link](http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js)
@@ -71,6 +72,6 @@ Application Link：[English](https://imbearchild.github.io/ZenPenPlus/index.html
 
 The MIT License
 
-Copyright (C) 2016 ~ [Tim Holman](http://tholman.com) ~ timothy.w.holman@gmail.com
-
 Copyright (C) 2020 ~ [ImBearChild](https://github.com/ImBearChild/)
+
+原作：[ZenPen](https://github.com/tholman/zenpen) (MIT License)
