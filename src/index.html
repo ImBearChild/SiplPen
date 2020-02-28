@@ -16,7 +16,7 @@
     <!--<link rel="preload" href="fonts/SourceHanSerifCN-Regular.woff2" as="script">-->
 </head>
 
-<body class="yin">
+<body class="yang">
     <div class="overlay">
         <div class="wordcount modal">
             <h1>Target Word Count
@@ -132,6 +132,16 @@
                             <td class="link_btn" id="toggleFont" onclick="ZenPen.ui.s_toggleFont()"><span
                                     class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span></td>
                         </tr>
+                        <tr>
+                            <td>Spell Check
+                                <!--{cn}拼写检查--></br>
+                                <span style="font-size:smaller">Disable this to prevent distraction.
+                                    <!--{cn}关闭此选项以避免干扰--></span>
+                            </td>
+                            <td class="link_btn" id="toggleSpellCheck" onclick="ZenPen.ui.s_toggleSpellCheck()"><span
+                                    class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div>
@@ -146,7 +156,8 @@
                                     <!--{cn}在心流模式下关闭自动保存、右键菜单与复制功能--></span>
                             </td>
                             <td class="link_btn" id="toggleStrict" onclick="ZenPen.ui.s_toggleStrict()"><span
-                                    class="fa-lg"><i class="fa-fw fa fa-check-square-o" aria-hidden="true"></i></span></td>
+                                    class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -161,7 +172,7 @@
                                 <span style="font-size:smaller" onclick="">Reset HTML5 "localStorage"
                                     <!--{cn}重置HTML5"localStorage"存储区--></span></td>
                             <td class="link_btn" onclick="ZenPen.ui.s_cleanLocalStorage()"><span class="fa-lg"><i
-                                    class="fa fa-caret-square-o-right" aria-hidden="true"></i></span></td>
+                                        class="fa fa-caret-square-o-right" aria-hidden="true"></i></span></td>
                         </tr>
                     </table>
                 </div>
@@ -173,15 +184,16 @@
                 <table border="0" id="lang_list">
                     <tr>
                         <td><span onclick="tran.setLang('default');tranString()">English</span></td>
-                        <td style="text-align: right;"><span onclick="tran.setLang('cn');tranString()">Chinese(中文)</span></td>
+                        <td style="text-align: right;"><span
+                                onclick="tran.setLang('cn');tranString()">Chinese(中文)</span></td>
                     </tr>
 
                 </table>
                 <div id="langarginform" style="font-size:12px;display: none;">
-                    <p>*:If your address field or bookmark link have argument like "?lang=XX",
+                    <p>If your address field or bookmark link have argument like "?lang=XX",
                         maybe your language change will lost after exit or refresh this page. You can delete the
                         argument safely, if you want make this setting permanent.
-                        <!--{cn}如果你的地址栏或者书签链接含有“?lang=XX”之类的参数，你的语言更改会在离开或刷新此页面后失效。如果你想要长期保存这项更改，你可以放心地删除这些参数。-->
+                        <!--{cn}如果你的地址栏或者书签链接含有“?lang=XX”之类的参数，你的语言更改会在离开或刷新此页面后失效。如果你想要长期保存这项更改，你可以放心地从链接中删除这些参数。-->
                     </p>
                 </div>
             </div>
@@ -268,7 +280,7 @@
                 <button class="save useicons" title="Save Text" title-cn="保存文本">
                     <i class="fa fa-floppy-o " aria-hidden="true"></i>
                 </button>
-                <button class="flowstate useicons" title="Enter flowstate mode" title-cn="Flowstate 模式">
+                <button class="flowstate useicons" title="Enter flowstate mode" title-cn="心流模式">
                     <i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i>
                 </button>
             </div>
@@ -289,7 +301,7 @@
     </div>
 
     <section>
-        <header contenteditable="true" class="header"></header>
+        <header contenteditable="true" class="header" spellcheck="false"></header>
         <article contenteditable="true" class="content"></article>
     </section>
 

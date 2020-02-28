@@ -19,8 +19,6 @@ ZenPen.ui = (function () {
     var expandScreenIcon = '<i class="fa fa-arrows-alt fa-fw" aria-hidden="true"></i>';
     var shrinkScreenIcon = '<i class="fa fa-compress fa-fw" aria-hidden="true"></i>';
 
-    var darkLayout = false;
-
     // flowstateMode
     var flowstateMode = false;
     var strictFlow = false;
@@ -63,20 +61,12 @@ ZenPen.ui = (function () {
 
         // Activate color switch
         if (localStorage['darkLayout'] === 'true') {
-            if (darkLayout === false) {
-                document.body.className = 'yang';
-            } else {
-                document.body.className = 'yin';
-            }
-            darkLayout = !darkLayout;
+            document.body.className = 'yin';
         }
-
     }
 
     function saveState() {
-
         if (ZenPen.util.supportsHtmlStorage()) {
-            localStorage['darkLayout'] = darkLayout;
             localStorage['wordCount'] = wordCountElement.value;
         }
     }
@@ -187,14 +177,13 @@ ZenPen.ui = (function () {
     };
 
     function onColorLayoutClick(event) {
-        if (darkLayout === false) {
+        if (localStorage["darkLayout"] === 'true') {
             document.body.className = 'yang';
+            localStorage["darkLayout"] = false;
         } else {
             document.body.className = 'yin';
-        }
-        darkLayout = !darkLayout;
-
-        saveState();
+            localStorage["darkLayout"] = true;
+        };
     }
 
     function onTargetClick(event) {
@@ -205,8 +194,13 @@ ZenPen.ui = (function () {
     }
 
     function onSaveClick(event) {
-        ZenPen.util.fadeIn(overlay);
-        ZenPen.util.fadeIn(saveModal);
+        if (flowstateMode === false) {
+            ZenPen.util.fadeIn(overlay);
+            ZenPen.util.fadeIn(saveModal);
+        } else {
+            ZenPen.util.fadeIn(overlay);
+            ZenPen.util.fadeIn(flowingBox);
+        }
     }
 
     function onInfoClick(event) {
@@ -233,7 +227,6 @@ ZenPen.ui = (function () {
             ZenPen.util.fadeIn(overlay);
             ZenPen.util.fadeIn(flowingBox);
         }
-        darkLayout = !darkLayout;
     }
 
     function saveText(event) {
@@ -475,6 +468,11 @@ ZenPen.ui = (function () {
         }
     }
 
+    function enableCopy() {
+        window.oncontextmenu = null;
+        document.body.oncopy = null;
+    }
+
     function enterFlowstateMode() {
         if (strictFlow === true) {
             console.log('Strict Flowmode');
@@ -530,6 +528,7 @@ ZenPen.ui = (function () {
         clearInterval(expiring_id);
         resetOpacity();
         unclaimCount();
+        enableCopy();
         timeCounterProgress.style.transition = "";
         timeCounterProgress.style.width = "0px";
         flowstateMode = false;
@@ -548,22 +547,26 @@ ZenPen.ui = (function () {
     //MARK:settings
     function loadSettingItems() {
         //font
-        if (localStorage.getItem('src_font') === null) {
-            localStorage.setItem('src_font', 'No');
-        }
-        if (localStorage.getItem('src_font') === "Yes") {
+        if (localStorage.getItem('src_font') === "true") {
             document.querySelector('body').classList.add("src-font");
-        } else if (localStorage.getItem('src_font') === "No") {
+        } else if (localStorage.getItem('src_font') === "false") {
             document.querySelector('body').classList.remove("src-font");
         }
         //strictFlow
-        if (localStorage.getItem('strict_flow') === null) {
-            localStorage.setItem('strict_flow', 'No');
-        }
-        if (localStorage.getItem('strict_flow') === "Yes") {
+        if (localStorage.getItem('strict_flow') === "true") {
             strictFlow = true;
-        } else if (localStorage.getItem('strict_flow') === "No") {
+        } else if (localStorage.getItem('strict_flow') === "false") {
             strictFlow = false;
+        }
+        document.querySelector('article').spellcheck = localStorage['spell_check'];
+        //
+        if (localStorage.getItem('spell_check') === "true") {
+            document.querySelector('article').spellcheck = true;
+        } else if (localStorage.getItem('strict_flow') === "false") {
+            document.querySelector('article').spellcheck = false;
+        } else {
+            localStorage['spell_check'] = false;
+            document.querySelector('article').spellcheck = false;
         }
     }
 
@@ -573,30 +576,52 @@ ZenPen.ui = (function () {
             document.getElementById('langarginform').style.display = "block";
         }
         //font
-        if (localStorage.getItem('src_font') === "Yes") {
+        if (localStorage.getItem('src_font') === "true") {
             document.querySelector('#toggleFont i').className = 'fa fa-fw fa-check-square-o';
-        } else if (localStorage.getItem('src_font') === "No") {
+        } else if (localStorage.getItem('src_font') === "false") {
             document.querySelector('#toggleFont i').className = 'fa fa-fw fa-square-o';
         } else {
-            document.querySelector('#toggleFont i').className = 'fa fa-fw fa-exclamation-triangle';
+            localStorage['src_font'] = false;
         }
-        if (localStorage.getItem('strict_flow') === "Yes") {
+        //strict
+        if (localStorage.getItem('strict_flow') === "true") {
             document.querySelector('#toggleStrict i').className = 'fa fa-fw fa-check-square-o';
-        } else if (localStorage.getItem('strict_flow') === "No") {
+        } else if (localStorage.getItem('strict_flow') === "false") {
             document.querySelector('#toggleStrict i').className = 'fa fa-fw fa-square-o';
         } else {
-            document.querySelector('#toggleStrict i').className = 'fa fa-fw fa-exclamation-triangle';
+            localStorage['strict_flow'] = false;
+        }
+        //spell check
+        if (localStorage.getItem('spell_check') === "true") {
+            document.querySelector('#toggleSpellCheck i').className = 'fa fa-fw fa-check-square-o';
+        } else if (localStorage.getItem('strict_flow') === "false") {
+            document.querySelector('#toggleSpellCheck i').className = 'fa fa-fw fa-square-o';
+        } else {
+            localStorage['spell_check'] = false;
         }
 
     }
 
-    function s_toggleStrict(){
-        if (localStorage.getItem('strict_flow') === "Yes") {
-            localStorage.setItem('strict_flow',"No");
-            strictFlow=false;
-        } else if (localStorage.getItem('strict_flow') === "No") {
-            localStorage.setItem('strict_flow',"Yes");
-            strictFlow=true;
+    function s_toggleSpellCheck() {
+        if (localStorage['spell_check'] === "true") {
+            localStorage['spell_check'] = false;
+            document.querySelector('article').spellcheck = false;
+        } else if (localStorage['spell_check'] === "false") {
+            localStorage['spell_check'] = true;
+            document.querySelector('article').spellcheck = true;
+        } else {
+            alert(alertContent1);
+        }
+        checkSettingItems();
+    }
+
+    function s_toggleStrict() {
+        if (localStorage.getItem('strict_flow') === "true") {
+            localStorage['strict_flow'] = false;
+            strictFlow = false;
+        } else if (localStorage.getItem('strict_flow') === "false") {
+            localStorage['strict_flow'] = true;
+            strictFlow = true;
         } else {
             alert(alertContent1);
         }
@@ -612,9 +637,9 @@ ZenPen.ui = (function () {
     }
 
     function s_toggleFont() {
-        if (localStorage.getItem('src_font') === "No") {
+        if (localStorage['src_font'] === 'false') {
             document.querySelector('body').classList.add("src-font");
-            localStorage.setItem('src_font', 'Yes');
+            localStorage['src_font'] = true;
             var a = setTimeout(function () {
                 document.getElementById('spanfontloading').style.display = 'inline';
             }, 5000);
@@ -653,9 +678,9 @@ ZenPen.ui = (function () {
                 clearTimeout(a);
             });
 
-        } else if (localStorage.getItem('src_font') === "Yes") {
-            localStorage.setItem('src_font', 'No');
+        } else if (localStorage['src_font'] === 'true') {
             document.querySelector('body').classList.remove("src-font");
+            localStorage['src_font'] = false;
         } else {
             alert(alertContent1);
         }
@@ -670,7 +695,8 @@ ZenPen.ui = (function () {
         //settings
         s_cleanLocalStorage: s_cleanLocalStorage,
         s_toggleFont: s_toggleFont,
-        s_toggleStrict:s_toggleStrict,
+        s_toggleStrict: s_toggleStrict,
+        s_toggleSpellCheck: s_toggleSpellCheck,
     }
 
 })();
