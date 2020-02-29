@@ -1,6 +1,6 @@
 // editor
 ZenPen = window.ZenPen || {};
-ZenPen.editor = (function() {
+ZenPen.editor = (function () {
 
     //MARK:Var pool
 
@@ -9,6 +9,9 @@ ZenPen.editor = (function() {
 
     // Editor Bubble elements
     var textOptions, optionsBox, boldButton, italicButton, quoteButton, urlButton, urlInput;
+
+    // Save
+    var saveState_P = saveState;
 
     var composing;
 
@@ -35,6 +38,32 @@ ZenPen.editor = (function() {
         if ("ontouchstart" in window) {
             optionsBox.classList.add("options-mobile");
         }
+        //Make new content is <p>
+        document.execCommand("defaultParagraphSeparator", false, "p");
+        //
+        contentField.addEventListener("paste", doPaste);
+    }
+
+    function doPaste(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var text = '',
+            event = (e.originalEvent || e);
+        if (event.clipboardData && event.clipboardData.getData) {
+            text = event.clipboardData.getData('text/plain');
+        } else if (window.clipboardData && window.clipboardData.getData) {
+            text = window.clipboardData.getData('Text');
+        }
+        //在此处处理text！
+        var textArr = text.split("\n");
+        for (j = 0, len = textArr.length; j < len; j++) {
+            if (textArr[j] !== "") {
+                textArr[j] = "<p>" + textArr[j] + "</p>"
+            }
+        }
+        if (document.execCommand('insertHTML', false, textArr.join("")) === false) {
+            alert(alertContent2);
+        };
     }
 
     function createEventBindings() {
@@ -42,8 +71,8 @@ ZenPen.editor = (function() {
         // Key up bindings
         if (ZenPen.util.supportsHtmlStorage()) {
 
-            document.onkeyup = function(event) {
-                saveState();
+            document.onkeyup = function (event) {
+                saveState_P();
                 checkTextHighlighting(event);
             }
 
@@ -53,30 +82,30 @@ ZenPen.editor = (function() {
 
         // Mouse bindings
         document.onmousedown = checkTextHighlighting;
-        document.onmouseup = function(event) {
+        document.onmouseup = function (event) {
 
-            setTimeout(function() {
+            setTimeout(function () {
                 checkTextHighlighting(event);
             }, 1);
         };
 
         // Touchscreen bindings
         //document.ontouchstart = checkTextHighlighting;
-        document.oncontextmenu = function(event) {
+        document.oncontextmenu = function (event) {
 
-            setTimeout(function() {
+            setTimeout(function () {
                 checkTextHighlighting(event);
             }, 1);
         };
 
         // Window bindings
-        window.addEventListener('resize', function(event) {
+        window.addEventListener('resize', function (event) {
             updateBubblePosition();
         });
 
 
-        document.body.addEventListener('scroll', function() {
-            
+        document.body.addEventListener('scroll', function () {
+
             // TODO: Debounce update bubble position to stop excessive redraws
             updateBubblePosition();
         });
@@ -92,7 +121,7 @@ ZenPen.editor = (function() {
     }
 
 
-    function bindElements() { 
+    function bindElements() {
 
         headerField = document.querySelector('.header');
         contentField = document.querySelector('.content');
@@ -207,7 +236,7 @@ ZenPen.editor = (function() {
     function onSelectorBlur() {
 
         textOptions.className = "text-options fade";
-        setTimeout(function() {
+        setTimeout(function () {
 
             if (textOptions.className == "text-options fade") {
 
@@ -274,8 +303,8 @@ ZenPen.editor = (function() {
     }
 
     function loadDefaultContent() {
-    contentField.innerHTML = defaultContent;
-     // in string.js
+        contentField.innerHTML = defaultContent;
+        // in string.js
     }
 
     function onBoldClick() {
@@ -304,7 +333,7 @@ ZenPen.editor = (function() {
             optionsBox.className = 'options url-mode'
 
             // Set timeout here to debounce the focus action
-            setTimeout(function() {
+            setTimeout(function () {
 
                 var nodeNames = findNodes(window.getSelection().focusNode);
 
@@ -426,12 +455,25 @@ ZenPen.editor = (function() {
         document.getElementsByClassName("content")[0].style.opacity = 1;
         saveState();
     }
+
+    function startStrictFlow() {
+        localStorage['header'] = headerField.innerHTML;
+        localStorage['content'] = "";
+        saveState_P = function () {};
+    }
+
+    function finishStrictFlow() {
+        saveState()
+        saveState_P = saveState;
+    }
     return {
         init: init,
         saveState: saveState,
         getWordCount: getWordCount,
         cls: cls,
-        loadDefaultContent: loadDefaultContent
+        loadDefaultContent: loadDefaultContent,
+        startStrictFlow: startStrictFlow,
+        finishStrictFlow: finishStrictFlow
     }
 
 })();

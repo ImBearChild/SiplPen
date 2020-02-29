@@ -43,7 +43,7 @@ ZenPen.ui = (function () {
         if (ZenPen.util.supportsHtmlStorage()) {
             loadState();
         }
-
+        console.log(consoleText1);
     }
 
     function loadState() {
@@ -117,12 +117,8 @@ ZenPen.ui = (function () {
             saveElement.onclick = onSaveClick;
 
             var formatSelectors = document.querySelectorAll('.saveselection span');
-            for (var i in formatSelectors) {
-                try {
-                    formatSelectors[i].onclick = selectFormat;
-                } catch (error) {
-                    console.log(error);
-                };
+            for (var i = 0, len = formatSelectors.length; i < len; i++) {
+                formatSelectors[i].onclick = selectFormat;
             }
 
             document.querySelector('.savebutton').onclick = saveText;
@@ -475,14 +471,14 @@ ZenPen.ui = (function () {
 
     function enterFlowstateMode() {
         if (strictFlow === true) {
-            console.log('Strict Flowmode');
+            console.info('Strict Mode is enabled');
+            ZenPen.editor.startStrictFlow();
             disableCopy();
         }
-        console.log("Starting flowstate mode: " + total_time + " , " + expiring_time + " , " + alpha_step);
+        console.info("Starting flowstate mode: " + total_time + " , " + expiring_time + " , " + alpha_step);
         resetOpacity();
         targetElement = document.querySelector('.content');
         targetElement.oninput = function () {
-            console.log("Press!");
             expiring_time = expiring_set;
             resetOpacity();
         };
@@ -500,7 +496,7 @@ ZenPen.ui = (function () {
             total_time = total_time - 1;
             //updateTimeCount();
         } else {
-            console.log("All over");
+            console.info("Flowstate mode completed");
             flowCompleted();
         }
     }
@@ -510,7 +506,7 @@ ZenPen.ui = (function () {
             expiring_time = expiring_time - 1;
             document.getElementsByClassName("content")[0].style.opacity = document.getElementsByClassName("content")[0].style.opacity - alpha_step;
         } else {
-            console.log("Over");
+            console.info('Flowstate ended in failure');
             ZenPen.editor.cls();
             flowCleanWork();
             ZenPen.util.fadeIn(overlay);
@@ -529,6 +525,7 @@ ZenPen.ui = (function () {
         resetOpacity();
         unclaimCount();
         enableCopy();
+        ZenPen.editor.finishStrictFlow();
         timeCounterProgress.style.transition = "";
         timeCounterProgress.style.width = "0px";
         flowstateMode = false;
