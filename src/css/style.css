@@ -112,7 +112,7 @@ article {
 	font-size: 18px;
 	display: block;
 	word-wrap: break-word;
-	text-align: justify;
+	text-align: left;
 	text-justify: inter-ideograph;
 }
 
@@ -636,6 +636,10 @@ table#lang_list span {
 
 .yang .options:before {
 	border-top: 5px solid rgba(240, 240, 240, .9);
+}
+
+.yang .options-mobile:before {
+	border-top: 5px solid transparent;
 }
 
 .url {

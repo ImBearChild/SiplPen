@@ -38,7 +38,7 @@ ZenPen.ui = (function () {
         bindElements();
         loadSettingItems();
 
-        var wordCountActive = false;
+        //var wordCountActive = false;
 
         if (ZenPen.util.supportsHtmlStorage()) {
             loadState();
@@ -639,7 +639,7 @@ ZenPen.ui = (function () {
             localStorage['src_font'] = true;
             var a = setTimeout(function () {
                 document.getElementById('spanfontloading').style.display = 'inline';
-            }, 5000);
+            }, 100);
             claimCount();
             var t = 0;
             if (t === 0) {
@@ -664,6 +664,7 @@ ZenPen.ui = (function () {
                 clearInterval(pid);
                 clearTimeout(a);
                 unclaimCount();
+                fontProgress.style.marginLeft = "-33px";
                 console.log('Font is available');
             }, function () {
                 unclaimCount();
@@ -672,6 +673,7 @@ ZenPen.ui = (function () {
                 }, 3000);
                 console.log('Font is not available');
                 clearInterval(pid);
+                fontProgress.style.marginLeft = "-33px";
                 clearTimeout(a);
             });
 

@@ -1,10 +1,9 @@
 'use strict'
 
 var defaultTitle, defaultContent, alertContent1, confirmContent1, alertContent2, consoleText1;
+var tran;
 
-var tran = new Translater();
-
-function tranString() {
+function tranString(lang) {
 	var defaultTitle_DEF = 'This is ZenPenPlus';
 	var defaultTitle_CN = '简笔'
 
@@ -54,10 +53,10 @@ To get started, all you need to do is delete this text (seriously, just highligh
 	var confirmContent1_DEF = "All user date will be deleted. Are you sure to continue?"
 	var confirmContent1_CN = "所有用户数据都将被清除。您确定要继续吗？"
 
-	var consoleText1_DEF = "If you like this project, please give me a star on github! (https://github.com/ImBearChild/ZenPenPlus)"
+	var consoleText1_DEF = "If you like this project, please consider giving me a star on github! (https://github.com/ImBearChild/ZenPenPlus)"
 	var consoleText1_CN = "如果你喜欢该项目，请在GitHub上给我一个Star！(https://github.com/ImBearChild/ZenPenPlus)"
 
-	if (tran.getLang() === "cn") {
+	if (lang == "cn") {
 		defaultTitle = defaultTitle_CN;
 		defaultContent = defaultContent_CN;
 		alertContent1 = alertContent1_CN;
@@ -74,4 +73,23 @@ To get started, all you need to do is delete this text (seriously, just highligh
 	}
 }
 
-tranString();
+function initTran() {
+	if (!localStorage["t-lang"]) {
+		if (window.navigator.language.slice(0, 2) == "en") {
+			tran = new Translater({
+				lang: "en"
+			});
+
+		} else if (window.navigator.language == "zh-CN") {
+			tran = new Translater({
+				lang: "cn"
+			});
+
+		}
+	} else {
+		tran = new Translater();
+	};
+}
+
+initTran();
+tranString(tran.getLang());

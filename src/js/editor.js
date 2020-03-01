@@ -187,8 +187,13 @@ ZenPen.editor = (function () {
     function updateBubblePosition() {
 
         var selection = window.getSelection();
-        var range = selection.getRangeAt(0);
-        var boundary = range.getBoundingClientRect();
+        try {
+            //如果页面突然调整大小，可能会出错
+            var range = selection.getRangeAt(0);
+            var boundary = range.getBoundingClientRect();
+        } catch (error) {
+            console.error(error);
+        }
         //Touchscreen suppprt
         if ("ontouchstart" in window) {
             textOptions.style.top = boundary.bottom + 64 + window.pageYOffset + "px";

@@ -50,16 +50,6 @@ README：[English](https://github.com/ImBearChild/ZenPenPlus/blob/master/readme_
 
 ---------
 
-## 文件说明
-
-`src`目录下是项目的源代码，`docs`目录下是经过`makedoc.py`压缩的源代码。两者代码无实质上区别，均可直接使用。本项目的Github Page实际上指向的是`docs`目录，因此每次发布release都会在`dev`分支使用`makedoc.py`压缩后合并到`master`分支。
-
-`run_doc.sh`与`run_src.sh`会启动对应目录的开发用的服务器。
-
-注意：`makedoc.py`需要Node.js包`clean-css-cli`、`uglify-js`才能运行。`run_doc.sh`与`run_src.sh`需要Node.js包`http-server`。（本项目的命令行工具均不支持Windows环境，WSL理论上可用，但我没有测试过。）
-
----------
-
 ## 版权信息
 
 ### 使用的第三方库
@@ -77,3 +67,13 @@ The MIT License
 Copyright (C) 2020 ~ [ImBearChild](https://github.com/ImBearChild/)
 
 原作：[ZenPen](https://github.com/tholman/zenpen) (MIT License)
+
+---------
+
+## 文件说明
+
+`src`目录下是项目的源代码，`docs`目录下是经过`makedoc.py`压缩的源代码。两者代码无实质上区别，均可直接使用。本项目的Github Page实际上指向的是`docs`目录，因此每次发布release都会在`dev`分支使用`makedoc.py`压缩后合并到`master`分支。
+
+`run_doc.sh`与`run_src.sh`会启动对应目录的开发用的服务器。
+
+注意：`makedoc.py`需要Node.js包`clean-css-cli`、`uglify-js`才能运行。`run_doc.sh`与`run_src.sh`需要Node.js包`http-server`。（本项目的命令行工具均不支持Windows环境，WSL理论上可用，但我没有测试过。）

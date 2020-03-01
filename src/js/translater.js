@@ -9,7 +9,7 @@
  * 
  * This flie is different from its origin.
  */
-(function(f) {
+(function (f) {
     if (typeof exports === "object" && typeof module !== "undefined") {
         module.exports = f();
     } else if (typeof define === "function" && define.amd) {
@@ -27,30 +27,32 @@
         }
         g.Translater = f();
     }
-})(function() {
+})(function () {
     var define, module, exports;
-    var Translater = function(option, callback) {
+    var Translater = function (option, callback) {
         // 默认给URL参数 ?lang=en
         option = option || {};
         if (getUrlParam("lang")) {
             option.lang = getUrlParam("lang");
         }
         if (option.lang) {
-            setCookie("t-lang", option.lang, 24);
+            //setCookie("t-lang", option.lang, 24);
+            localStorage["t-lang"] = option.lang;
             this.lang_name = option.lang;
         } else {
             this.lang_name = "default";
         }
         // 回调函数
-        this.callback = callback || function() {};
+        this.callback = callback || function () {};
         this.langs = getElems() || [];
         if (this.lang_name !== "default") this.setLang(option.lang);
-        var lang = getCookie("t-lang");
+        var lang = localStorage["t-lang"];
         lang && lang !== "default" && this.setLang(lang);
     };
     Translater.prototype = {
-        setLang: function(name, elms) {
-            var langs = elms || this.langs, method = "";
+        setLang: function (name, elms) {
+            var langs = elms || this.langs,
+                method = "";
             this.lang_name = name;
             for (var i = 0; i < langs.length; i++) {
                 if (langs[i]["lang-" + name] || langs[i][name]) {
@@ -70,9 +72,9 @@
                     this.setLang(name, langs[i]);
                 }
             }
-            setCookie("t-lang", name, 24);
+            localStorage["t-lang"] = name;
         },
-        getLang: function() {
+        getLang: function () {
             return this.lang_name;
         }
     };
@@ -107,7 +109,7 @@
         // var str = document.getElementById("box").innerHTML;
         // var str1 = str.replace(/<.*>(.*)<.*>/i,"$1"); 
         // var str2 = str.replace(/^.*<!--(.*)-->.*$/,"$1");
-        var elems = Array.prototype.concat(getTextNodes(document), getNodes(document, "IMG"), getNodes(document, "INPUT"),getNodes(document,"BUTTON"));
+        var elems = Array.prototype.concat(getTextNodes(document), getNodes(document, "IMG"), getNodes(document, "INPUT"), getNodes(document, "BUTTON"));
         var emptyArray = [];
         var translateData = new Object();
         for (var i = 0; i < elems.length; i++) {
@@ -121,12 +123,14 @@
     }
     // 处理title里面的语言切换情况
     function serializeTitle(elm) {
-        var data = {}, value = elm.nodeValue, i = 0;
+        var data = {},
+            value = elm.nodeValue,
+            i = 0;
         data.element = elm.parentElement;
         data["lang-default"] = value.replace(/<!--(.*)-->.*/, "");
         value && (value = elm.nodeValue.match(/<!--\{\w+\}[\s\S]*?-->/gi));
         if (value && value.length > 0) {
-            for (;i < value.length; i++) {
+            for (; i < value.length; i++) {
                 var name = value[i].match(/\{([^\ ]*)\}/)[0];
                 name = name.replace(/\{([^\ ]*)\}/g, "$1");
                 data["lang-" + name] = value[i].replace(/<!--\{\w+\}(.*)-->/g, "$1");
@@ -137,14 +141,15 @@
     }
     // 处理 IMG
     function serializeIMG(elm) {
-        var i = 0, trans = [];
+        var i = 0,
+            trans = [];
         var htmlstr = elm.outerHTML;
         var imgurl = htmlstr.match(/src=\"(.*?)\"/);
         var alt = htmlstr.match(/alt=\"(.*?)\"/);
         var title = htmlstr.match(/title=\"(.*?)\"/);
         var placeholder = htmlstr.match(/placeholder=\"(.*?)\"/);
         var value = htmlstr.match(/value=\"(.*?)\"/);
-        var processing = function(proce, _type, _mark) {
+        var processing = function (proce, _type, _mark) {
             var data = {};
             var regm = new RegExp(_mark + '.(\\w+).\\".*?\\"', "g");
             var regname = new RegExp(_mark + "(.*?)=");
@@ -193,7 +198,9 @@
             // 处理 BUTTON
             return serializeIMG(elm);
         }
-        var name = "lang-default", value = elm.nodeValue, fragmentRE = /^\{\w+\}/;
+        var name = "lang-default",
+            value = elm.nodeValue,
+            fragmentRE = /^\{\w+\}/;
         if (elm.nodeType === 8 && fragmentRE.test(value)) {
             // 获取花括号内容
             name = value.match(fragmentRE)[0];
@@ -217,6 +224,7 @@
     function trim(text) {
         return "" + (null == text ? "" : (text + "").replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "").replace(/[\r\n]+/g, ""));
     }
+
     function getUrlParam(name, searchStr) {
         // 兼容 ?id=22&name=%E4%B8%AD%E6%96%87&DEBUG 处理
         var url = searchStr || location.search;
@@ -230,15 +238,19 @@
         }
         return name ? params[name] : params;
     }
+
     function getNodes(e, _tagName) {
-        var i = 0, result = [], doms = e.getElementsByTagName(_tagName);
-        for (;i < doms.length; i++) result.push(doms[i]);
+        var i = 0,
+            result = [],
+            doms = e.getElementsByTagName(_tagName);
+        for (; i < doms.length; i++) result.push(doms[i]);
         return result;
     }
     //兼容的获取文本节点的简单方案
-    var getTextNodes = window.NodeFilter ? function(e) {
+    var getTextNodes = window.NodeFilter ? function (e) {
         //支持TreeWalker的浏览器
-        var r = [], o, s;
+        var r = [],
+            o, s;
         s = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null, null);
         while (o = s.nextNode()) {
             if (o.parentElement.tagName !== "SCRIPT" && o.parentElement.tagName !== "STYLE" && o.parentElement.tagName !== "CODE" && trim(o.nodeValue) !== "") {
@@ -246,24 +258,25 @@
             }
         }
         return r;
-    } : function(e) {
+    } : function (e) {
         //不支持的需要遍历
         switch (e.nodeType) {
-          //注释节点直接返回
+            //注释节点直接返回
             case 3:
-            return [ e ];
+                return [e];
 
-          case 1:
-            ;
+            case 1:
+                ;
 
-          case 9:
-            //文档或元素需要遍历子节点
-            var i, s = e.childNodes, result = [];
-            if (e.tagName !== "SCRIPT" && e.tagName !== "STYLE" && e.tagName !== "CODE" && trim(o.nodeValue) !== "") {
-                for (i = 0; i < s.length; i++) getTextNodes(s[i]) && result.push(getTextNodes(s[i]));
-                //合并子数组   
-                return Array.prototype.concat.apply([], result);
-            }
+            case 9:
+                //文档或元素需要遍历子节点
+                var i, s = e.childNodes,
+                    result = [];
+                if (e.tagName !== "SCRIPT" && e.tagName !== "STYLE" && e.tagName !== "CODE" && trim(o.nodeValue) !== "") {
+                    for (i = 0; i < s.length; i++) getTextNodes(s[i]) && result.push(getTextNodes(s[i]));
+                    //合并子数组   
+                    return Array.prototype.concat.apply([], result);
+                }
         }
     };
     return Translater;
