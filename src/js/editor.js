@@ -1,6 +1,6 @@
 // editor
-ZenPen = window.ZenPen || {};
-ZenPen.editor = (function () {
+//SiplPen = window.SiplPen || {};
+SiplPen.editor = (function () {
 
     //MARK:Var pool
 
@@ -23,7 +23,7 @@ ZenPen.editor = (function () {
         createEventBindings();
 
         // Load state if storage is supported
-        if (ZenPen.util.supportsHtmlStorage()) {
+        if (SiplPen.util.supportsHtmlStorage()) {
             loadState();
         } else {
             loadDefault();
@@ -69,7 +69,7 @@ ZenPen.editor = (function () {
     function createEventBindings() {
 
         // Key up bindings
-        if (ZenPen.util.supportsHtmlStorage()) {
+        if (SiplPen.util.supportsHtmlStorage()) {
 
             document.onkeyup = function (event) {
                 saveState_P();
@@ -292,7 +292,7 @@ ZenPen.editor = (function () {
         if (localStorage['header']) {
             headerField.innerHTML = localStorage['header'];
         } else {
-            headerField.innerHTML = defaultTitle; // in default.js
+            headerField.innerHTML = SiplPen.translater.getTran("defaultTitle"); // in default.js
         }
 
         if (localStorage['content']) {
@@ -308,7 +308,7 @@ ZenPen.editor = (function () {
     }
 
     function loadDefaultContent() {
-        contentField.innerHTML = defaultContent;
+        contentField.innerHTML = SiplPen.translater.getTran("defaultContent");
         // in string.js
     }
 
@@ -420,7 +420,7 @@ ZenPen.editor = (function () {
     }
 
     function getWordCount() {
-        var text = ZenPen.util.getText(contentField);
+        var text = SiplPen.util.getText(contentField);
         var sLen;
         if (text === "") {
             return 0

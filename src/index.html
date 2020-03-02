@@ -3,13 +3,13 @@
 
 <head>
     <!-- MISC/META -->
-    <title>ZenPenPlus
-        <!--{cn}简笔-->
+    <title>SiplPen
     </title>
+    <link rel="icon" type="image/svg+xml" href="feather.svg" sizes="any" />
     <!-- ~ Minimal Distraction, Maximum Zen-->
     <meta charset="utf-8" />
     <meta name="description"
-        content="ZenpenPlus - A minimal text editor, made to stay out of the way while you get the words down." />
+        content="SiplPenPlus - A minimal text editor, made to stay out of the way while you get the words down." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
     <!-- CSS -->
     <link rel="stylesheet" href="css/font-awesome.min.css" />
@@ -133,7 +133,7 @@
                                     You can continue using this app. When loading complete, the yellow top bar will
                                     display.
                                     <!--{cn}正在加载字体。您可以继续使用程序而不受影响。当加载完成时，黄色顶栏会消失。--></b></td>
-                            <td class="link_btn" id="toggleFont" onclick="ZenPen.ui.s_toggleFont()"><span
+                            <td class="link_btn" id="toggleFont" onclick="SiplPen.ui.s_toggleFont()"><span
                                     class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span></td>
                         </tr>
                         <tr>
@@ -142,7 +142,7 @@
                                 <span style="font-size:smaller">Disable this to prevent distraction.
                                     <!--{cn}关闭此选项以避免干扰--></span>
                             </td>
-                            <td class="link_btn" id="toggleSpellCheck" onclick="ZenPen.ui.s_toggleSpellCheck()"><span
+                            <td class="link_btn" id="toggleSpellCheck" onclick="SiplPen.ui.s_toggleSpellCheck()"><span
                                     class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span>
                             </td>
                         </tr>
@@ -159,7 +159,7 @@
                                 <span style="font-size:smaller">Disable auto save and copy in flowstate mode.
                                     <!--{cn}在心流模式下关闭自动保存、右键菜单与复制功能--></span>
                             </td>
-                            <td class="link_btn" id="toggleStrict" onclick="ZenPen.ui.s_toggleStrict()"><span
+                            <td class="link_btn" id="toggleStrict" onclick="SiplPen.ui.s_toggleStrict()"><span
                                     class="fa-lg"><i class="fa-fw fa fa-square-o" aria-hidden="true"></i></span>
                             </td>
                         </tr>
@@ -175,7 +175,7 @@
                                 <!--{cn}清除所有用户数据--></br>
                                 <span style="font-size:smaller" onclick="">Reset HTML5 "localStorage"
                                     <!--{cn}重置HTML5"localStorage"存储区--></span></td>
-                            <td class="link_btn" onclick="ZenPen.ui.s_cleanLocalStorage()"><span class="fa-lg"><i
+                            <td class="link_btn" onclick="SiplPen.ui.s_cleanLocalStorage()"><span class="fa-lg"><i
                                         class="fa fa-caret-square-o-right" aria-hidden="true"></i></span></td>
                         </tr>
                     </table>
@@ -187,9 +187,9 @@
                 </h2>
                 <table border="0" id="lang_list">
                     <tr>
-                        <td><span onclick="tran.setLang('default');tranString()">English</span></td>
+                        <td><span onclick="SiplPen.translater.setLang('default')">English</span></td>
                         <td style="text-align: right;"><span
-                                onclick="tran.setLang('cn');tranString()">Chinese(中文)</span></td>
+                                onclick="SiplPen.translater.setLang('cn')">Chinese(中文)</span></td>
                     </tr>
 
                 </table>
@@ -242,8 +242,8 @@
                         <td>Link
                             <!--{cn}链接-->
                         </td>
-                        <td class="item_value"><a href="https://github.com/ImBearChild/ZenPenPlus" target="_blank"
-                                rel="noopener noreferrer">GitHub</a>&<a href="https://gitee.com/bearchild/ZenPenPlus"
+                        <td class="item_value"><a href="https://github.com/ImBearChild/SiplPenPlus" target="_blank"
+                                rel="noopener noreferrer">GitHub</a>&<a href="https://gitee.com/bearchild/SiplPenPlus"
                                 target="_blank" rel="noopener noreferrer">Gitee</a></td>
                     </tr>
                 </table>
@@ -266,7 +266,7 @@
             </span>
         </div>
     </div>
-    </div>
+
 
     <div class="ui">
         <div class="wrapper">
@@ -317,15 +317,19 @@
     <script src="js/libs/fontfaceobserver.standalone.min.js"></script>
 
     <!-- JS -->
+    <script type="text/javascript">
+        var SiplPen = window.SiplPen || {};
+    </script>
+    <script src="js/libs/translater-lib.js"></script>
     <script src="js/translater.js"></script>
-    <script src="js/string.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/editor.js"></script>
     <script src="js/ui.js"></script>
     <script type="text/javascript">
-        // Initiate ZenPen
-        ZenPen.editor.init();
-        ZenPen.ui.init();
+        // Initiate SiplPen
+        SiplPen.translater.init();
+        SiplPen.editor.init();
+        SiplPen.ui.init();
     </script>
 </body>
 

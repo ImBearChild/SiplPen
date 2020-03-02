@@ -1,283 +1,122 @@
-/*!
- * translater.js v1.0.12
- * Simple translation tools.
- * 
- * Copyright (c) 2018 kenny wong <wowohoo@qq.com>
- * http://jaywcjlove.github.io/translater.js/
- * 
- * Licensed under the MIT license.
- * 
- * This flie is different from its origin.
- */
-(function (f) {
-    if (typeof exports === "object" && typeof module !== "undefined") {
-        module.exports = f();
-    } else if (typeof define === "function" && define.amd) {
-        define([], f);
-    } else {
-        var g;
-        if (typeof window !== "undefined") {
-            g = window;
-        } else if (typeof global !== "undefined") {
-            g = global;
-        } else if (typeof self !== "undefined") {
-            g = self;
-        } else {
-            g = this;
-        }
-        g.Translater = f();
-    }
-})(function () {
-    var define, module, exports;
-    var Translater = function (option, callback) {
-        // 默认给URL参数 ?lang=en
-        option = option || {};
-        if (getUrlParam("lang")) {
-            option.lang = getUrlParam("lang");
-        }
-        if (option.lang) {
-            //setCookie("t-lang", option.lang, 24);
-            localStorage["t-lang"] = option.lang;
-            this.lang_name = option.lang;
-        } else {
-            this.lang_name = "default";
-        }
-        // 回调函数
-        this.callback = callback || function () {};
-        this.langs = getElems() || [];
-        if (this.lang_name !== "default") this.setLang(option.lang);
-        var lang = localStorage["t-lang"];
-        lang && lang !== "default" && this.setLang(lang);
-    };
-    Translater.prototype = {
-        setLang: function (name, elms) {
-            var langs = elms || this.langs,
-                method = "";
-            this.lang_name = name;
-            for (var i = 0; i < langs.length; i++) {
-                if (langs[i]["lang-" + name] || langs[i][name]) {
-                    if (langs[i].element.tagName === "TITLE") {
-                        method = "innerHTML";
-                    } else if (langs[i].element.tagName === "IMG") {
-                        method = langs[i]["type"];
-                    } else if (langs[i].element.tagName === "INPUT") {
-                        method = langs[i]["type"];
-                    } else if (langs[i].element.tagName === "BUTTON") {
-                        method = langs[i]["type"];
-                    } else {
-                        method = "nodeValue";
-                    }
-                    langs[i].element[method] = langs[i]["lang-" + name] || langs[i][name];
-                } else {
-                    this.setLang(name, langs[i]);
-                }
-            }
-            localStorage["t-lang"] = name;
-        },
-        getLang: function () {
-            return this.lang_name;
-        }
-    };
-    //获取 COOKIE
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(";");
-        //把cookie分割成组    
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            //取得字符串    
-            while (c.charAt(0) == " ") {
-                //判断一下字符串有没有前导空格    
-                c = c.substring(1, c.length);
-            }
-            if (c.indexOf(nameEQ) == 0) {
-                //如果含有我们要的name    
-                return unescape(c.substring(nameEQ.length, c.length));
-            }
-        }
-        return false;
-    }
-    //设置 COOKIE
-    function setCookie(name, value, hours) {
-        var date = new Date();
-        date.setTime(date.getTime() + Number(hours) * 3600 * 1e3);
-        document.cookie = name + "=" + value + "; path=/;expires = " + date.toGMTString();
-    }
-    // 获取所有节点里面的注释信息
-    // 返回一个数组
-    function getElems() {
-        // var str = document.getElementById("box").innerHTML;
-        // var str1 = str.replace(/<.*>(.*)<.*>/i,"$1"); 
-        // var str2 = str.replace(/^.*<!--(.*)-->.*$/,"$1");
-        var elems = Array.prototype.concat(getTextNodes(document), getNodes(document, "IMG"), getNodes(document, "INPUT"), getNodes(document, "BUTTON"));
-        var emptyArray = [];
-        var translateData = new Object();
-        for (var i = 0; i < elems.length; i++) {
-            translateData = translater(elems[i]);
-            var mTran = Object.getOwnPropertyNames(translateData);
-            if (mTran.length >= 2 && mTran[0] == "0" || mTran.length > 2) {
-                emptyArray.push(translateData);
-            }
-        }
-        return emptyArray;
-    }
-    // 处理title里面的语言切换情况
-    function serializeTitle(elm) {
-        var data = {},
-            value = elm.nodeValue,
-            i = 0;
-        data.element = elm.parentElement;
-        data["lang-default"] = value.replace(/<!--(.*)-->.*/, "");
-        value && (value = elm.nodeValue.match(/<!--\{\w+\}[\s\S]*?-->/gi));
-        if (value && value.length > 0) {
-            for (; i < value.length; i++) {
-                var name = value[i].match(/\{([^\ ]*)\}/)[0];
-                name = name.replace(/\{([^\ ]*)\}/g, "$1");
-                data["lang-" + name] = value[i].replace(/<!--\{\w+\}(.*)-->/g, "$1");
-            }
-        }
-        elm.parentElement.innerHTML = data["lang-default"];
-        return data;
-    }
-    // 处理 IMG
-    function serializeIMG(elm) {
-        var i = 0,
-            trans = [];
-        var htmlstr = elm.outerHTML;
-        var imgurl = htmlstr.match(/src=\"(.*?)\"/);
-        var alt = htmlstr.match(/alt=\"(.*?)\"/);
-        var title = htmlstr.match(/title=\"(.*?)\"/);
-        var placeholder = htmlstr.match(/placeholder=\"(.*?)\"/);
-        var value = htmlstr.match(/value=\"(.*?)\"/);
-        var processing = function (proce, _type, _mark) {
-            var data = {};
-            var regm = new RegExp(_mark + '.(\\w+).\\".*?\\"', "g");
-            var regname = new RegExp(_mark + "(.*?)=");
-            var regval = new RegExp(_mark + '(.*?)=\\"(.*?)\\"');
-            data.element = elm;
-            data["default"] = proce.length === 2 ? proce[1] : "";
-            proce = htmlstr.match(regm);
-            if (proce && proce.length > 0) {
-                for (i = 0; i < proce.length; i++) {
-                    data[proce[i].match(regname, "$1")[1]] = proce[i].match(regval, "$1")[2];
-                    data["type"] = _type;
-                }
-            }
-            return data;
-        };
-        if (imgurl) {
-            trans.push(processing(imgurl, "src", "data-lang-"));
-        }
-        if (alt) {
-            trans.push(processing(alt, "alt", "alt-"));
-        }
-        if (title) {
-            trans.push(processing(title, "title", "title-"));
-        }
-        if (placeholder) {
-            trans.push(processing(placeholder, "placeholder", "placeholder-"));
-        }
-        if (value) {
-            trans.push(processing(value, "value", "value-"));
-        }
-        return trans;
-    }
-    // 序列化翻译数据
-    function translater(elm, langData) {
-        langData = langData || {};
-        if (elm.parentElement && elm.parentElement.tagName === "TITLE") {
-            // 处理title里面的语言切换情况
-            return serializeTitle(elm);
-        } else if (elm.tagName === "IMG" && elm.nodeType === 1) {
-            // 处理 IMG
-            return serializeIMG(elm);
-        } else if (elm.tagName === "INPUT" && elm.nodeType === 1) {
-            // 处理 INPUT
-            return serializeIMG(elm);
-        } else if (elm.tagName === "BUTTON" && elm.nodeType === 1) {
-            // 处理 BUTTON
-            return serializeIMG(elm);
-        }
-        var name = "lang-default",
-            value = elm.nodeValue,
-            fragmentRE = /^\{\w+\}/;
-        if (elm.nodeType === 8 && fragmentRE.test(value)) {
-            // 获取花括号内容
-            name = value.match(fragmentRE)[0];
-            // 去掉花括号
-            name = "lang-" + (name ? name.replace(/\{([^\ ]*)\}/g, "$1") : "");
-            // 获取好括号后面的内容
-            value = value.replace(fragmentRE, "");
-            if (trim(value) !== "") langData[name] = value;
-        }
-        if (trim(value) !== "" && !langData["lang-default"]) {
-            langData[name] = value;
-            langData.element = elm;
-        }
-        var nextElm = elm.nextSibling;
-        if (nextElm && nextElm.nodeType !== 1) {
-            translater(nextElm, langData);
-        }
-        return langData;
-    }
-    //过滤左右的空格以及换行符
-    function trim(text) {
-        return "" + (null == text ? "" : (text + "").replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "").replace(/[\r\n]+/g, ""));
-    }
+"use strict"
+//SiplPen = window.SiplPen || {};
+SiplPen.translater = (function () {
 
-    function getUrlParam(name, searchStr) {
-        // 兼容 ?id=22&name=%E4%B8%AD%E6%96%87&DEBUG 处理
-        var url = searchStr || location.search;
-        var params = {};
-        if (url.indexOf("?") != -1) {
-            var arr = url.substr(1).split("&");
-            for (var i = 0, l = arr.length; i < l; i++) {
-                var kv = arr[i].split("=");
-                params[kv[0]] = kv[1] && decodeURIComponent(kv[1]);
-            }
-        }
-        return name ? params[name] : params;
-    }
+	//var defaultTitle, defaultContent, alertContent1, confirmContent1, alertContent2, consoleText1;
+	var tran = new Translater();
+	var strMap;
 
-    function getNodes(e, _tagName) {
-        var i = 0,
-            result = [],
-            doms = e.getElementsByTagName(_tagName);
-        for (; i < doms.length; i++) result.push(doms[i]);
-        return result;
-    }
-    //兼容的获取文本节点的简单方案
-    var getTextNodes = window.NodeFilter ? function (e) {
-        //支持TreeWalker的浏览器
-        var r = [],
-            o, s;
-        s = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null, null);
-        while (o = s.nextNode()) {
-            if (o.parentElement.tagName !== "SCRIPT" && o.parentElement.tagName !== "STYLE" && o.parentElement.tagName !== "CODE" && trim(o.nodeValue) !== "") {
-                r.push(o);
-            }
-        }
-        return r;
-    } : function (e) {
-        //不支持的需要遍历
-        switch (e.nodeType) {
-            //注释节点直接返回
-            case 3:
-                return [e];
+	function tranString(lang) {
+		var htmlTitle_CN = '简笔'
+		var htmlTitle_DEF = 'Siplpen'
+		var defaultTitle_DEF = 'This is Siplpen';
+		var defaultTitle_CN = '简笔'
+		var defaultContent_DEF =
+			'<p>\
+A minimalist writing zone, where you can block out all distractions and get to what\'s important. The writing!  \
+</p>\
+<p> \
+To get started, all you need to do is delete this text (seriously, just highlight it and hit delete), and fill the page with your own fantastic words. You can even change the title! \
+</p> \
+<p> \
+	You can use <b>bold</b>, <i>italics</i>, <b><i>both</i></b> and <a href="https://imbearchild.github.io/SiplPen/index.html"> urls </a> just by highlighting the text and selecting them from the tiny options box that appears above it.\
+</p>\
+<blockquote>\
+	Quotes are easy to add too!\
+</blockquote>\
+<p>\
+	And with the addition of flowstate mode, you can focus on writing more deeply.</p>\
+	<p>This is the most dangerous function of this application. You have to keep writing, or everything will be erased if you stop beyond the expiring time.\
+</p>\
+';
+		var defaultContent_CN =
+			'<p>\
+一个极简的写作区域。这里可以阻挡所有的干扰，并让您专注于重要的事情——写作！  \
+</p><p>\
+首先，你只需要删除这段文字（只需Ctrl+A选中并按下Del键），然后用你自己的精彩词汇填充页面。标题也可以自由修改。 \
+</p> \
+<p> \
+	只需选中文本点击上方出现的小选项框，就可以使用<b>粗体</b>, <i>斜体</i>, <b><i>粗斜体</i></b> 还有 <a href="https://imbearchild.github.io/SiplPen/index.html?lang=cn">链接。</a> \
+</p>\
+<blockquote>\
+	引用也很容易添加！\
+</blockquote>\
+<p>页面的左侧是本软件的菜单栏，您可以使用该处的按钮设置全屏、切换主题、设置目标字数、保存文字以及启动心流模式。</p>\
+<p>如果您觉得默认字体显示效果不尽人意，您可以使用左下角的齿轮按钮打开设置界面进行调整。</p>\
+<p>\
+	随着心流模式的加入，你可以更加专注于写作。</p>\
+	<p>现在就点击右侧的双箭头试一试吧。\
+</p>\
+'
 
-            case 1:
-                ;
+		var alertContent1_DEF = "An internal error has occurred. Please save your document and use \"Clean ALL user data.\" item to reset data."
+		var alertContent1_CN = "发生内部错误。\n因储存的数据与程序逻辑不一致，此设置项暂不可用。\n要修复此问题请保存您的文档，并使用设置项“清除所有用户数据”来重设数据。"
+		var alertContent2_DEF = "An internal error has occurred. Your browser dose NOT supprot this application. "
+		var alertContent2_CN = "发生内部错误。您的浏览器不支持我们使用的接口。粘贴功能暂不可用。"
 
-            case 9:
-                //文档或元素需要遍历子节点
-                var i, s = e.childNodes,
-                    result = [];
-                if (e.tagName !== "SCRIPT" && e.tagName !== "STYLE" && e.tagName !== "CODE" && trim(o.nodeValue) !== "") {
-                    for (i = 0; i < s.length; i++) getTextNodes(s[i]) && result.push(getTextNodes(s[i]));
-                    //合并子数组   
-                    return Array.prototype.concat.apply([], result);
-                }
-        }
-    };
-    return Translater;
-});
+		var confirmContent1_DEF = "All user date will be deleted. Are you sure to continue?"
+		var confirmContent1_CN = "所有用户数据都将被清除。您确定要继续吗？"
+
+		var consoleText1_DEF = "If you like this project, please consider giving me a star on github! (https://github.com/ImBearChild/SiplPen)"
+		var consoleText1_CN = "如果你喜欢该项目，请在GitHub上给我一个Star！(https://github.com/ImBearChild/SiplPen)"
+
+		if (lang == "cn") {
+			strMap = new Map();
+			strMap.set("defaultTitle", defaultTitle_CN);
+			strMap.set("defaultContent", defaultContent_CN);
+			strMap.set("alertContent1", alertContent1_CN)
+			strMap.set('confirmContent1', confirmContent1_CN);
+			strMap.set('alertContent2', alertContent2_CN);
+			strMap.set('consoleText1', consoleText1_CN);
+			document.title = htmlTitle_CN;
+		} else {
+			strMap = new Map();
+			strMap.set("defaultTitle", defaultTitle_DEF);
+			strMap.set("defaultContent", defaultContent_DEF);
+			strMap.set("alertContent1", alertContent1_DEF)
+			strMap.set('confirmContent1', confirmContent1_DEF);
+			strMap.set('alertContent2', alertContent2_DEF);
+			strMap.set('consoleText1', consoleText1_DEF);
+			document.title = htmlTitle_DEF;
+		}
+	}
+
+	function init() {
+		if (!localStorage["t-lang"]) {
+			if (window.navigator.language == "zh-CN") {
+				tran.setLang('cn');
+				tranString('cn');
+			} else {
+				tranString(getLang());
+			}
+		} else {
+			tranString(getLang());
+		};
+	}
+
+	function getLang() {
+		return tran.getLang();
+	}
+
+	function setLang(lang) {
+		tranString(lang);
+		tran.setLang(lang);
+	}
+
+	function getTran(key) {
+		var a = strMap.get(key);
+		return a;
+	}
+
+	function getTranObj() {
+		return tran;
+	}
+
+	return {
+		init: init,
+		getLang: getLang,
+		setLang: setLang,
+		getTran: getTran,
+		getTranObj: getTranObj,
+	}
+})();

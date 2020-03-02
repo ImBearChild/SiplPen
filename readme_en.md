@@ -1,4 +1,4 @@
-# ZenPen - A minimalist writing zone
+# SiplPen - A minimalist writing zone
 
 Block out distractions and focus on writing.
 
@@ -6,13 +6,13 @@ Block out distractions and focus on writing.
 
 ZenpenPlus is a web app for writing minimally, and getting into the Zone.
 
-Compared with original project "Zenpen", ZenpenPlus comes with a few improvements.
+Compared with original project "Zenpen", SiplPen comes with a few improvements.
 
 All information is persistent locally, using HTML5 local storage.
 
-Applink：[GitHub Page](https://imbearchild.github.io/ZenPenPlus/index.html?lang=en)
+Applink：[GitHub Page](https://imbearchild.github.io/SiplPen/index.html)
 
-README：[中文](https://github.com/ImBearChild/ZenPenPlus/blob/master/readme.md)
+README：[中文](https://github.com/ImBearChild/SiplPen/blob/master/readme.md)
 
 ## Improvements
 

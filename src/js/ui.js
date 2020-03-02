@@ -1,7 +1,7 @@
 "use strict"
 // ui functions
-ZenPen = window.ZenPen || {};
-ZenPen.ui = (function () {
+//SiplPen = window.SiplPen || {};
+SiplPen.ui = (function () {
 
     // Base elements
     var body, article, uiContainer, overlay, header;
@@ -37,13 +37,14 @@ ZenPen.ui = (function () {
 
         bindElements();
         loadSettingItems();
+        SiplPen.translater.init();
 
         //var wordCountActive = false;
 
-        if (ZenPen.util.supportsHtmlStorage()) {
+        if (SiplPen.util.supportsHtmlStorage()) {
             loadState();
         }
-        console.log(consoleText1);
+        console.log(SiplPen.translater.getTran("consoleText1"));
     }
 
     function loadState() {
@@ -66,7 +67,7 @@ ZenPen.ui = (function () {
     }
 
     function saveState() {
-        if (ZenPen.util.supportsHtmlStorage()) {
+        if (SiplPen.util.supportsHtmlStorage()) {
             localStorage['wordCount'] = wordCountElement.value;
         }
     }
@@ -183,45 +184,45 @@ ZenPen.ui = (function () {
     }
 
     function onTargetClick(event) {
-        ZenPen.util.fadeIn(overlay);
+        SiplPen.util.fadeIn(overlay);
         //overlay.style.display="block";
-        ZenPen.util.fadeIn(wordCountBox);
+        SiplPen.util.fadeIn(wordCountBox);
         wordCountElement.focus();
     }
 
     function onSaveClick(event) {
         if (flowstateMode === false) {
-            ZenPen.util.fadeIn(overlay);
-            ZenPen.util.fadeIn(saveModal);
+            SiplPen.util.fadeIn(overlay);
+            SiplPen.util.fadeIn(saveModal);
         } else {
-            ZenPen.util.fadeIn(overlay);
-            ZenPen.util.fadeIn(flowingBox);
+            SiplPen.util.fadeIn(overlay);
+            SiplPen.util.fadeIn(flowingBox);
         }
     }
 
     function onInfoClick(event) {
         var t = document.getElementById("wordcountinfo");
-        t.innerText = ZenPen.editor.getWordCount();
-        ZenPen.util.fadeIn(overlay);
-        ZenPen.util.fadeIn(infoBox);
+        t.innerText = SiplPen.editor.getWordCount();
+        SiplPen.util.fadeIn(overlay);
+        SiplPen.util.fadeIn(infoBox);
     }
 
     function onSettingsClick(event) {
         checkSettingItems();
-        ZenPen.util.fadeIn(overlay);
-        ZenPen.util.fadeIn(settingBox);
+        SiplPen.util.fadeIn(overlay);
+        SiplPen.util.fadeIn(settingBox);
     }
 
     function onFlowstateClick(event) {
         if (flowstateMode === false) {
-            ZenPen.util.fadeIn(overlay);
-            ZenPen.util.fadeIn(flowstateBox);
+            SiplPen.util.fadeIn(overlay);
+            SiplPen.util.fadeIn(flowstateBox);
             //overlay.style.display = "block";
             //flowstateBox.style.display = "block";
-            //ZenPen.editor.enterFlowstateMode ();
+            //SiplPen.editor.enterFlowstateMode ();
         } else {
-            ZenPen.util.fadeIn(overlay);
-            ZenPen.util.fadeIn(flowingBox);
+            SiplPen.util.fadeIn(overlay);
+            SiplPen.util.fadeIn(flowingBox);
         }
     }
 
@@ -234,7 +235,7 @@ ZenPen.ui = (function () {
             /* remove tabs and line breaks from header */
             var headerText = header.innerHTML.replace(/(\t|\n|\r)/gm, "");
             if (headerText === "") {
-                headerText = "ZenPen";
+                headerText = "SiplPen";
             }
             saveAs(blob, headerText + '.txt');
         } else {
@@ -312,7 +313,7 @@ ZenPen.ui = (function () {
 
     function updateWordCount() {
 
-        var wordCount = ZenPen.editor.getWordCount();
+        var wordCount = SiplPen.editor.getWordCount();
         var percentageComplete = wordCount / wordCountValue;
         wordCounterProgress.style.width = percentageComplete * 100 + '%';
 
@@ -433,7 +434,7 @@ ZenPen.ui = (function () {
     }
 
     function removeOverlay() {
-        ZenPen.util.fadeOut(overlay);
+        SiplPen.util.fadeOut(overlay);
         //overlay.style.display = "none";
         setTimeout(function () {
             //wordCountBox.style.display = "none";
@@ -472,7 +473,7 @@ ZenPen.ui = (function () {
     function enterFlowstateMode() {
         if (strictFlow === true) {
             console.info('Strict Mode is enabled');
-            ZenPen.editor.startStrictFlow();
+            SiplPen.editor.startStrictFlow();
             disableCopy();
         }
         console.info("Starting flowstate mode: " + total_time + " , " + expiring_time + " , " + alpha_step);
@@ -507,10 +508,10 @@ ZenPen.ui = (function () {
             document.getElementsByClassName("content")[0].style.opacity = document.getElementsByClassName("content")[0].style.opacity - alpha_step;
         } else {
             console.info('Flowstate ended in failure');
-            ZenPen.editor.cls();
+            SiplPen.editor.cls();
             flowCleanWork();
-            ZenPen.util.fadeIn(overlay);
-            ZenPen.util.fadeIn(flowstateFailBox);
+            SiplPen.util.fadeIn(overlay);
+            SiplPen.util.fadeIn(flowstateFailBox);
         }
     }
 
@@ -525,7 +526,7 @@ ZenPen.ui = (function () {
         resetOpacity();
         unclaimCount();
         enableCopy();
-        ZenPen.editor.finishStrictFlow();
+        SiplPen.editor.finishStrictFlow();
         timeCounterProgress.style.transition = "";
         timeCounterProgress.style.width = "0px";
         flowstateMode = false;
@@ -533,8 +534,8 @@ ZenPen.ui = (function () {
 
     function flowCompleted() {
         flowCleanWork();
-        ZenPen.util.fadeIn(overlay);
-        ZenPen.util.fadeIn(saveModal);
+        SiplPen.util.fadeIn(overlay);
+        SiplPen.util.fadeIn(saveModal);
         targetElement = document.querySelector('.finishsummary ');
         targetElement.innerHTML = targetElement.innerHTML.replace("{s}", total_set / 60);
         targetElement.style.display = "block";
@@ -627,7 +628,7 @@ ZenPen.ui = (function () {
 
 
     function s_cleanLocalStorage() {
-        if (confirm(confirmContent1) === true) {
+        if (confirm(SiplPen.translater.getTran('confirmContent1')) === true) {
             localStorage.clear();
             window.location.reload();
         }
@@ -664,13 +665,16 @@ ZenPen.ui = (function () {
                 clearInterval(pid);
                 clearTimeout(a);
                 unclaimCount();
+                setTimeout(function () {
+                    document.getElementById('spanfontloading').style.display = 'none';
+                }, 1000);
                 fontProgress.style.marginLeft = "-33px";
                 console.log('Font is available');
             }, function () {
                 unclaimCount();
                 setTimeout(function () {
                     document.getElementById('spanfontloading').style.display = 'none';
-                }, 3000);
+                }, 1000);
                 console.log('Font is not available');
                 clearInterval(pid);
                 fontProgress.style.marginLeft = "-33px";
