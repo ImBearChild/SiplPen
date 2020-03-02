@@ -169,16 +169,16 @@
             trans.push(processing(imgurl, "src", "data-lang-"));
         }
         if (alt) {
-            trans.push(processing(alt, "alt", "alt-"));
+            trans.push(processing(alt, "alt", "data-alt-"));
         }
         if (title) {
-            trans.push(processing(title, "title", "title-"));
+            trans.push(processing(title, "title", "data-title-"));
         }
         if (placeholder) {
-            trans.push(processing(placeholder, "placeholder", "placeholder-"));
+            trans.push(processing(placeholder, "placeholder", "data-placeholder-"));
         }
         if (value) {
-            trans.push(processing(value, "value", "value-"));
+            trans.push(processing(value, "value", "data-value-"));
         }
         return trans;
     }

@@ -56,12 +56,53 @@ SiplPen.util = (function () {
 		element.style.opacity = 0;
 	}
 
+	function ajax(method, url, data, callback, flag) {
+		var xhr;
+		if (typeof (flag) === undefined) {
+			flag = true
+		};
+		if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		} else {
+			xhr = new ActiveXObject('Microsoft.XMLHtml');
+		}
+		method = method.toUpperCase();
+		if (method == "GET") {
+			if (data) {
+				xhr.open(method, url + '?' + data, flag);
+			}
+			xhr.open(method, url, flag);
+			xhr.send();
+		} else if (method == "POST") {
+			xhr.open(method, url, flag);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.send(data);
+		}
+
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				callback(xhr.responseText);
+			}
+		}
+	}
+
+	//实际上演示功能，测试css排版设置用的
+	//内置一段西塞罗的节选
+	function loadDebugJS() {
+		var fn = function (x) {
+			eval(x)
+		};
+		ajax('GET', 'js/debugger.js', null, fn, true);
+	}
+
 	return {
 		trim: trim,
 		getText: getText,
 		supportsHtmlStorage: supportsHtmlStorage,
+		ajax: ajax,
 		fadeIn: fadeIn,
 		fadeOut: fadeOut,
+		loadDebugJS: loadDebugJS,
 	}
 
 })()

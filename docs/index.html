@@ -85,7 +85,7 @@
             </p>
         </div>
         <div class="flowfailure modal" style="z-index: 128;">
-            <table border="0">
+            <table>
                 <tr>
                     <td><i class="fa fa-fw fa-exclamation-circle fa-2x" aria-hidden="true"></i></td>
                     <td style="width: 4px;"></td>
@@ -99,7 +99,7 @@
             </table>
         </div>
         <div class="flowing modal">
-            <table border="0">
+            <table>
                 <tr>
                     <td><i class="fa fa-fw fa-exclamation-circle fa-2x" aria-hidden="true"></i></td>
                     <td style="width: 4px;"></td>
@@ -122,10 +122,10 @@
                     <h2>Editor
                         <!--{cn}编辑器-->
                     </h2>
-                    <table border="0">
+                    <table>
                         <tr>
                             <td>Use source serif font by Adobe.
-                                <!--{cn}使用Adobe开发的思源宋体--></br>
+                                <!--{cn}使用Adobe开发的思源宋体--><br />
                                 <span style="font-size:smaller">Improve visual experience. Use this when you feel font
                                     ugly.
                                     <!--{cn}改善视觉体验，在你觉得字体太丑或者不协调时使用--></span><br>
@@ -138,7 +138,7 @@
                         </tr>
                         <tr>
                             <td>Spell Check
-                                <!--{cn}拼写检查--></br>
+                                <!--{cn}拼写检查--><br />
                                 <span style="font-size:smaller">Disable this to prevent distraction.
                                     <!--{cn}关闭此选项以避免干扰--></span>
                             </td>
@@ -152,10 +152,10 @@
                     <h2>Flowstate
                         <!--{cn}心流模式-->
                     </h2>
-                    <table border="0">
+                    <table>
                         <tr>
                             <td>Strict mode
-                                <!--{cn}严格模式--></br>
+                                <!--{cn}严格模式--><br />
                                 <span style="font-size:smaller">Disable auto save and copy in flowstate mode.
                                     <!--{cn}在心流模式下关闭自动保存、右键菜单与复制功能--></span>
                             </td>
@@ -169,10 +169,10 @@
                     <h2>Misc
                         <!--{cn}杂项设置-->
                     </h2>
-                    <table border="0">
+                    <table>
                         <tr>
                             <td>Clean ALL user data.
-                                <!--{cn}清除所有用户数据--></br>
+                                <!--{cn}清除所有用户数据--><br />
                                 <span style="font-size:smaller" onclick="">Reset HTML5 "localStorage"
                                     <!--{cn}重置HTML5"localStorage"存储区--></span></td>
                             <td class="link_btn" onclick="SiplPen.ui.s_cleanLocalStorage()"><span class="fa-lg"><i
@@ -180,28 +180,29 @@
                         </tr>
                     </table>
                 </div>
-            </div>
-            <div>
-                <h2>Language
-                    <!--{cn}语言设置-->
-                </h2>
-                <table border="0" id="lang_list">
-                    <tr>
-                        <td><span onclick="SiplPen.translater.setLang('default')">English</span></td>
-                        <td style="text-align: right;"><span
-                                onclick="SiplPen.translater.setLang('cn')">Chinese(中文)</span></td>
-                    </tr>
+                <div>
+                    <h2>Language
+                        <!--{cn}语言设置-->
+                    </h2>
+                    <table id="lang_list">
+                        <tr>
+                            <td><span onclick="SiplPen.translater.setLang('default')">English</span></td>
+                            <td style="text-align: right;"><span
+                                    onclick="SiplPen.translater.setLang('cn')">Chinese(中文)</span></td>
+                        </tr>
 
-                </table>
-                <div id="langarginform" style="font-size:12px;display: none;">
-                    <p>If your address field or bookmark link have argument like "?lang=XX",
-                        maybe your language change will lost after exit or refresh this page. You can delete the
-                        argument safely, if you want make this setting permanent.
-                        <!--{cn}如果你的地址栏或者书签链接含有“?lang=XX”之类的参数，你的语言设置会在离开或刷新此页面后失效。这个参数是开发初期用来无视浏览器语言，强制应用翻译的。如果你想要长期保存这项更改，你可以放心地从链接中删除这些参数。-->
-                    </p>
+                    </table>
+                    <div id="langarginform" style="font-size:12px;display: none;">
+                        <p>If your address field or bookmark link have argument like "?lang=XX",
+                            maybe your language change will lost after exit or refresh this page. You can delete the
+                            argument safely, if you want make this setting permanent.
+                            <!--{cn}如果你的地址栏或者书签链接含有“?lang=XX”之类的参数，你的语言设置会在离开或刷新此页面后失效。这个参数是开发初期用来无视浏览器语言，强制应用翻译的。如果你想要长期保存这项更改，你可以放心地从链接中删除这些参数。-->
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="info modal">
             <h1>Info
                 <!--{cn}信息-->
@@ -210,7 +211,7 @@
                 <h2>Statistics
                     <!--{cn}统计-->
                 </h2>
-                <table border="0">
+                <table>
                     <tr>
                         <td>Word count
                             <!--{cn}字数-->
@@ -223,13 +224,12 @@
                 <h2>About
                     <!--{cn}关于-->
                 </h2>
-                <table border="0">
+                <table>
                     <tr>
                         <td>Author
                             <!--{cn}作者-->
                         </td>
                         <td class="item_value">ImBearChild(BearChild)</td>
-
                     </tr>
                     <tr>
                         <td>License
@@ -258,7 +258,7 @@
                 <span class="lengthen ui-inputs">
                     <button class="url"><i class="fa fa-link " aria-hidden="true"></i></button>
                     <input class="url-input" type="text" placeholder="Type or Paste URL here"
-                        placeholder-cn="在此处输入或粘贴URL" />
+                        data-placeholder-cn="在此处输入或粘贴URL" />
                     <button class="bold"><i class="fa fa-bold" aria-hidden="true"></i></button>
                     <button class="italic"><i class="fa fa-italic" aria-hidden="true"></i></button>
                     <button class="quote"><i class="fa fa-quote-left" aria-hidden="true"></i></button>
@@ -267,34 +267,33 @@
         </div>
     </div>
 
-
     <div class="ui">
         <div class="wrapper">
             <div class="top editing">
-                <button class="fullscreen useicons" title="Toggle fullscreen" title-cn="全屏模式">
+                <button class="fullscreen useicons" title="Toggle fullscreen" data-title-cn="全屏模式">
                     <i class="fa fa-arrows-alt " aria-hidden="true"></i>
                 </button>
 
-                <button class="color-flip useicons" title="Invert colors" title-cn="切换配色">
+                <button class="color-flip useicons" title="Invert colors" data-title-cn="切换配色">
                     <i class="fa fa-adjust " aria-hidden="true"></i>
                 </button>
 
-                <button class="target useicons" title="Set target word count" title-cn="设置目标">
+                <button class="target useicons" title="Set target word count" data-title-cn="设置目标">
                     <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
                 </button>
-                <button class="save useicons" title="Save Text" title-cn="保存文本">
+                <button class="save useicons" title="Save Text" data-title-cn="保存文本">
                     <i class="fa fa-floppy-o " aria-hidden="true"></i>
                 </button>
-                <button class="flowstate useicons" title="Enter flowstate mode" title-cn="心流模式">
+                <button class="flowstate useicons" title="Enter flowstate mode" data-title-cn="心流模式">
                     <i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i>
                 </button>
             </div>
 
             <div class="bottom">
-                <button class="infobtn useicons" title="About" title-cn="关于信息">
-                    <i class="fa  fa-info" aria-hidden="true"></i></buttom>
-                    <button class="settingbtn useicons" title="Settings" title-cn="偏好设置">
-                        <i class="fa fa-cog" aria-hidden="true"></i></buttom>
+                <button class="infobtn useicons" title="About" data-title-cn="关于信息">
+                    <i class="fa fa-info" aria-hidden="true"></i></button>
+                <button class="settingbtn useicons" title="Settings" data-title-cn="偏好设置">
+                    <i class="fa fa-cog" aria-hidden="true"></i></button>
             </div>
         </div>
     </div>
@@ -317,15 +316,15 @@
     <script src="js/libs/fontfaceobserver.standalone.min.js"></script>
 
     <!-- JS -->
-    <script type="text/javascript">
+    <script>
         var SiplPen = window.SiplPen || {};
     </script>
-    <script src="js/libs/translater-lib.js"></script>
+    <script src="js/translater-lib.js"></script>
     <script src="js/translater.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/editor.js"></script>
     <script src="js/ui.js"></script>
-    <script type="text/javascript">
+    <script>
         // Initiate SiplPen
         SiplPen.translater.init();
         SiplPen.editor.init();

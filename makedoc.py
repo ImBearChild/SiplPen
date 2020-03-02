@@ -45,8 +45,8 @@ for (root, dirs, files) in os.walk(src_dir+"/", followlinks=False):
             shutil.copy(path, doc_path)
             continue
         if path.find(".js") == len(path)-3:
-            print("Calling uglifyjs :"+name)
-            p = subprocess.Popen(['uglifyjs', "-o", work_dir+"/docs/js/" +
+            print("Calling terser :"+name)
+            p = subprocess.Popen(['terser', "-m", "-c", "-o", work_dir+"/docs/js/" +
                                   name, path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             # print(p.args)
             # pbar.update()

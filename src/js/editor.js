@@ -191,17 +191,17 @@ SiplPen.editor = (function () {
             //如果页面突然调整大小，可能会出错
             var range = selection.getRangeAt(0);
             var boundary = range.getBoundingClientRect();
+            //Touchscreen suppprt
+            if ("ontouchstart" in window) {
+                textOptions.style.top = boundary.bottom + 64 + window.pageYOffset + "px";
+                textOptions.style.left = (boundary.left + boundary.right) / 2 + "px";
+            } else {
+                textOptions.style.top = boundary.top - 5 + window.pageYOffset + "px";
+                textOptions.style.left = (boundary.left + boundary.right) / 2 + "px";
+
+            }
         } catch (error) {
             console.error(error);
-        }
-        //Touchscreen suppprt
-        if ("ontouchstart" in window) {
-            textOptions.style.top = boundary.bottom + 64 + window.pageYOffset + "px";
-            textOptions.style.left = (boundary.left + boundary.right) / 2 + "px";
-        } else {
-            textOptions.style.top = boundary.top - 5 + window.pageYOffset + "px";
-            textOptions.style.left = (boundary.left + boundary.right) / 2 + "px";
-
         }
     }
 
