@@ -629,7 +629,9 @@ SiplPen.ui = (function () {
 
     function s_cleanLocalStorage() {
         if (confirm(SiplPen.translater.getTran('confirmContent1')) === true) {
+            var lang = localStorage["t-lang"];
             localStorage.clear();
+            localStorage["t-lang"] = lang;
             window.location.reload();
         }
     }

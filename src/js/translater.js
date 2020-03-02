@@ -54,8 +54,8 @@ To get started, all you need to do is delete this text (seriously, just highligh
 		var alertContent2_DEF = "An internal error has occurred. Your browser dose NOT supprot this application. "
 		var alertContent2_CN = "发生内部错误。您的浏览器不支持我们使用的接口。粘贴功能暂不可用。"
 
-		var confirmContent1_DEF = "All user date will be deleted. Are you sure to continue?"
-		var confirmContent1_CN = "所有用户数据都将被清除。您确定要继续吗？"
+		var confirmContent1_DEF = "All user data except language setting will be deleted. Are you sure to continue?"
+		var confirmContent1_CN = "所有除了语言设置外用户数据都将被清除。您确定要继续吗？"
 
 		var consoleText1_DEF = "If you like this project, please consider giving me a star on github! (https://github.com/ImBearChild/SiplPen)"
 		var consoleText1_CN = "如果你喜欢该项目，请在GitHub上给我一个Star！(https://github.com/ImBearChild/SiplPen)"

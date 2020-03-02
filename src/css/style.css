@@ -466,16 +466,19 @@ table#lang_list span {
 	-ms-transition: all 1s linear;
 	-o-transition: all 1s linear;
 	transition: all 1s linear;
-	background-color: deepskyblue;
+	/*background-color: deepskyblue;*/
+	background-color: rgb(60, 128, 170);
 }
 
 .time-progress {
 	width: 0%;
-	background-color: cornflowerblue;
+	/*background-color: cornflowerblue;*/
+	background-color: rgb(128, 128, 170);
 }
 
 .progress.complete {
 	background-color: greenyellow;
+	z-index: 9;
 }
 
 .font-progress {
@@ -483,6 +486,7 @@ table#lang_list span {
 	margin-left: -33px;
 	transition: all 5s linear;
 	background-color: orange;
+	z-index: 10;
 }
 
 /*********************************************
