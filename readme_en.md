@@ -4,7 +4,7 @@ Block out distractions and focus on writing.
 
 ## Intro
 
-ZenpenPlus is a web app for writing minimally, and getting into the Zone.
+SiplPen is a web app for writing minimally, and getting into the Zone.
 
 Compared with original project "Zenpen", SiplPen comes with a few improvements.
 

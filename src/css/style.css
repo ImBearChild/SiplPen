@@ -117,8 +117,8 @@ article {
 
 @media (max-width: 800px) {
 	article {
-		font-size: 16px;
-		line-height: 23px;
+		font-size: 1.1rem;
+		line-height: 1.5rem;
 	}
 }
 

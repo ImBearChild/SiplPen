@@ -86,7 +86,7 @@ for (root, dirs, files) in os.walk(src_dir+"/", followlinks=False):
             mkdir(doc_path[:len(doc_path)-len(name)])
             shutil.copy(path, doc_path)
             continue
-        if path.find(".svg") == len(path)-5:
+        if path.find(".svg") == len(path)-4:
             doc_path = doc_dir + path[len(src_dir):]
             print("Copy SVG icon file:" + doc_path)
             mkdir(doc_path[:len(doc_path)-len(name)])
