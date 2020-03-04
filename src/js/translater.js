@@ -53,6 +53,7 @@ SiplPen.translater = (function () {
 			strMap.set('alertContent2', alertContent2_CN);
 			strMap.set('consoleText1', consoleText1_CN);
 			document.title = htmlTitle_CN;
+			document.lang = 'zh-CN';
 		} else {
 			strMap = new Map();
 			strMap.set("defaultTitle", defaultTitle_DEF);
@@ -62,14 +63,14 @@ SiplPen.translater = (function () {
 			strMap.set('alertContent2', alertContent2_DEF);
 			strMap.set('consoleText1', consoleText1_DEF);
 			document.title = htmlTitle_DEF;
+			document.lang = 'en';
 		}
 	}
 
 	function init() {
 		if (!localStorage["t-lang"]) {
 			if (window.navigator.language == "zh-CN") {
-				tran.setLang('cn');
-				tranString('cn');
+				setLang('cn');
 			} else {
 				tranString(getLang());
 			}
