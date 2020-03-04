@@ -175,10 +175,12 @@ SiplPen.ui = (function () {
 
     function onColorLayoutClick(event) {
         if (localStorage["darkLayout"] === 'true') {
-            document.body.className = 'yang';
+            document.body.classList.remove('yin');
+            document.body.classList.add('yang');
             localStorage["darkLayout"] = false;
         } else {
-            document.body.className = 'yin';
+            document.body.classList.remove('yang');
+            document.body.classList.add('yin');
             localStorage["darkLayout"] = true;
         };
     }

@@ -54,11 +54,17 @@ SiplPen.editor = (function () {
         } else if (window.clipboardData && window.clipboardData.getData) {
             text = window.clipboardData.getData('Text');
         }
+        //console.log(text);
+
         //在此处处理text！
         var textArr = text.split("\n");
-        for (j = 0, len = textArr.length; j < len; j++) {
-            if (textArr[j] !== "") {
-                textArr[j] = "<p>" + textArr[j] + "</p>"
+        //console.log(textArr.length);
+
+        if (textArr.length === 1) {} else {
+            for (j = 0, len = textArr.length; j < len; j++) {
+                if (textArr[j] !== "") {
+                    textArr[j] = "<p>" + textArr[j] + "</p>"
+                }
             }
         }
         if (document.execCommand('insertHTML', false, textArr.join("")) === false) {
