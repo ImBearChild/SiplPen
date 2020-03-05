@@ -16,6 +16,10 @@
 
 README：[English](https://github.com/ImBearChild/SiplPen/blob/master/readme_en.md)
 
+## 截图
+
+![演示](./screenshot/Lorem_CN.png)
+
 ## 功能
 
 * 全屏写作，隔绝干扰
