@@ -27,7 +27,7 @@ SiplPen.translater = (function () {
 			`<p>一个极简的写作区域。这里可以阻挡所有的干扰，并让您专注于重要的事情——写作！</p>
 			<p>首先，你只需要删除这段文字（只需Ctrl+A选中并按下Del键），然后用你自己的精彩词汇填充页面。标题也可以自由修改。</p>
 			<p>只需选中文本点击上方出现的小选项框，
-			就可以使用<b>粗体</b>, <i>斜体</i>, <b><i>粗斜体</i></b> 还有 <a href="https://imbearchild.github.io/SiplPen/index.html?lang=cn">链接。</a></p>
+			就可以使用<b>粗体</b>, <i>斜体</i>, <b><i>粗斜体</i></b> 还有 <a href="https://imbearchild.github.io/SiplPen/index.html?lang=cn">链接</a>。</p>
 			<blockquote>引用也很容易添加！</blockquote>
 			<p>页面的左侧是本软件的菜单栏，您可以使用该处的按钮设置全屏、切换主题、设置目标字数、保存文字以及启动心流模式。</p>
 			<p>如果您觉得默认字体显示效果不尽人意，您可以使用左下角的齿轮按钮打开设置界面进行调整。</p>

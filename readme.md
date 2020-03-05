@@ -12,9 +12,9 @@
 
 应用链接：
 [GitHub Page](https://imbearchild.github.io/SiplPen/index.html)与
-[Gitee Page](https://bearchild.gitee.io/SiplPen/index.html) (国内)
+[Gitee Page](https://bearchild.gitee.io/SiplPen/index.html) (中国大陆访问更快)
 
-README：[English](https://github.com/ImBearChild/SiplPen/blob/master/readme_en.md)
+README：[English](./readme_en.md)
 
 ## 截图
 
@@ -58,11 +58,11 @@ README：[English](https://github.com/ImBearChild/SiplPen/blob/master/readme_en.
 
 ### 使用的第三方库
 
-* translater.js (MIT License) [Link](https://github.com/jaywcjlove/translater.js)
+* [translater.js](https://github.com/jaywcjlove/translater.js) (小弟调调; MIT License) (与原始项目不同，添加了自定义修改)
 * FontAwesome (SIL OFL 1.1 and MIT License)
-* FileSaver.js [Link](http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js)
-* Blob.js [Link](http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js)
-* screenfull.js (Sindre Sorhus; MIT License)
+* [FileSaver.js](https://github.com/eligrey/FileSaver.js) (Eli Grey; MIT License)
+* [Blob.js](https://github.com/eligrey/Blob.js) (Eli Grey; MIT License)
+* [screenfull.js](https://github.com/sindresorhus/screenfull.js) (Sindre Sorhus; MIT License)
 
 ### 许可协议
 

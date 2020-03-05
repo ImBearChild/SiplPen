@@ -540,6 +540,17 @@ table#lang_list span {
 	transition: all 300ms ease-in-out;
 }
 
+.options-mobile {
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	margin: 0px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 5px;
+}
+
 .options.url-mode {
 	width: 275px;
 	margin-left: -137px;
