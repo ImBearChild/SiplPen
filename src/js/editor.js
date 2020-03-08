@@ -42,6 +42,7 @@ SiplPen.editor = (function () {
         document.execCommand("defaultParagraphSeparator", false, "p");
         //
         contentField.addEventListener("paste", doPaste);
+        headerField.addEventListener("paste", doHeaderPaste);
     }
 
     function doPaste(e) {
@@ -71,6 +72,22 @@ SiplPen.editor = (function () {
             alert(alertContent2);
         };
     }
+
+    function doHeaderPaste(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var text = '',
+            event = (e.originalEvent || e);
+        if (event.clipboardData && event.clipboardData.getData) {
+            text = event.clipboardData.getData('text/plain');
+        } else if (window.clipboardData && window.clipboardData.getData) {
+            text = window.clipboardData.getData('Text');
+        }
+        if (document.execCommand('insertHTML', false, text) === false) {
+            alert(alertContent2);
+        };
+    }
+
 
     function createEventBindings() {
 
