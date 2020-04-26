@@ -639,6 +639,9 @@ table#lang_list span {
 	left: 50%;
 }
 
+#spanfontfailed {font-size:smaller;display: none;color: darkorange;}
+#spanfontloading {font-size:smaller;display: none;}
+
 .options-mobile:before {
 	border-top: 5px solid transparent;
 }

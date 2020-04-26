@@ -678,6 +678,7 @@ SiplPen.ui = (function () {
                 unclaimCount();
                 setTimeout(function () {
                     document.getElementById('spanfontloading').style.display = 'none';
+                    document.getElementById('spanfontfailed').style.display = 'inline';
                 }, 1000);
                 console.log('Font is not available');
                 clearInterval(pid);

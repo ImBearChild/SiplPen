@@ -60,7 +60,7 @@ SiplPen.editor = (function () {
         var textArr = text.split("\n");
         //console.log(textArr.length);
 
-        if (textArr.length === 1) {} else {
+        if (textArr.length === 1) { } else {
             for (j = 0, len = textArr.length; j < len; j++) {
                 if (textArr[j] !== "") {
                     textArr[j] = "<p>" + textArr[j] + "</p>"
@@ -158,8 +158,8 @@ SiplPen.editor = (function () {
 
 
         if ((event.target.className === "url-input" ||
-                event.target.classList.contains("url") ||
-                event.target.parentNode.classList.contains("ui-inputs"))) {
+            event.target.classList.contains("url") ||
+            event.target.parentNode.classList.contains("ui-inputs"))) {
 
             currentNodeList = findNodes(selection.focusNode);
             updateBubbleStates();
@@ -364,7 +364,8 @@ SiplPen.editor = (function () {
 
         } else if (optionsBox.className == 'options options-mobile') {
             lastSelection = window.getSelection().getRangeAt(0);
-            word = prompt("URL:", "");
+            nodeNames = findNodes(window.getSelection().focusNode);
+            word = prompt("URL:", nodeNames.url);
             window.getSelection();
             applyURL(word);
         } else {
@@ -406,8 +407,7 @@ SiplPen.editor = (function () {
         if (url !== "") {
 
             // Insert HTTP if it doesn't exist.
-            if (!url.match("^(http|https)://")) {
-
+            if (!url.match("[A-z]*://")) {
                 url = "http://" + url;
             }
 
@@ -444,7 +444,7 @@ SiplPen.editor = (function () {
                 //Copyright:CSDN Blog:gavid0124
                 //console.log(str);
                 sLen = str.length;
-            } catch (e) {}
+            } catch (e) { }
             return sLen;
         }
     }
@@ -470,7 +470,7 @@ SiplPen.editor = (function () {
     function startStrictFlow() {
         localStorage['header'] = headerField.innerHTML;
         localStorage['content'] = "";
-        saveState_P = function () {};
+        saveState_P = function () { };
     }
 
     function finishStrictFlow() {
